@@ -13,24 +13,25 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
-public class AI_Random extends PlayerController {
+public class AI_MinMax extends PlayerController {
 
 
-    public AI_Random(int minimaxDepth){
+    public AI_MinMax(int minimaxDepth){
         
     }
 
-    public AI_Random(){
+    public AI_MinMax(){
         super();
     }
 
-    public int evaluateBoard(GomokuBoard board, Player player){
+    public int evaluateBoard(GomokuBoard board, Player player){ //fonction d'évaluation / Minmax
         /* Il y a sans doute des choses à modifier ici*/
+    	
         return new Random().nextInt(2000);
     }
 
     
-    public Coords[] getAvailableMoves(GomokuBoard board, Player player){
+    public Coords[] getAvailableMoves(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a itilisé récursivement dans le minmax
         Coords currentCellCoords = new Coords();
 
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;

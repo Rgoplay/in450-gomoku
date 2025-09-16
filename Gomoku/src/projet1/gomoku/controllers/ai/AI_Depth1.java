@@ -7,27 +7,29 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import projet1.gomoku.controllers.PlayerController;
+import projet1.gomoku.controllers.eval.EvalFunction;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
-public class AI_Random extends PlayerController {
+public class AI_Depth1 extends PlayerController {
 
 
-    public AI_Random(int minimaxDepth){
-        
+	private int depth = 0;
+	private EvalFunction eval;
+	
+    public AI_Depth1(int minimaxDepth, EvalFunction eval){
+       depth = minimaxDepth;
+       this.eval = eval;
     }
 
-    public AI_Random(){
+    public AI_Depth1(){
         super();
     }
 
-    public int evaluateBoard(GomokuBoard board, Player player){
-        /* Il y a sans doute des choses à modifier ici*/
-        return new Random().nextInt(2000);
-    }
+    
 
     
     public Coords[] getAvailableMoves(GomokuBoard board, Player player){
@@ -42,7 +44,7 @@ public class AI_Random extends PlayerController {
                 if (board.get(currentCellCoords) == TileState.Empty){ // Si la case est vide
                     
                     board.set(currentCellCoords, playerCellState); // Jouer le coup
-                    int score = evaluateBoard(board, player); // Evaluer le coup
+                    int score = eval.evaluateBoard(board, player); // Evaluer le coup
                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup
 
                     moves.put(currentCellCoords.clone(), score); // Enregistrer le coup

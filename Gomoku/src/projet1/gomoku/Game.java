@@ -1,16 +1,9 @@
 package projet1.gomoku;
 
-/*
- * Code created by Thomas Cohen (Esisar) 
- * open source code
- * */
- 
-import projet1.gomoku.controllers.HumanPlayer;
 import projet1.gomoku.controllers.PlayerController;
-import projet1.gomoku.controllers.ai.AI_Depth1;
 import projet1.gomoku.controllers.ai.AI_MinMax;
 import projet1.gomoku.controllers.eval.LigneColEval;
-import projet1.gomoku.controllers.eval.RandomEval;
+import projet1.gomoku.controllers.eval.WinLossEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
@@ -61,6 +54,7 @@ public class Game {
 
             System.out.println("Ligne: " + move.row);
             System.out.println("Colonne: " + move.column);
+            System.out.println("Eval: " + new LigneColEval().evaluateBoard(board, currentPlayer));
             System.out.println();
             board.print();
             System.out.println();
@@ -86,7 +80,7 @@ public class Game {
        // startMatch(new AI_Sweep(2), new AI_Sweep(2)); // Lancer une partie entre deux IA Sweep
         //startMatch(new AI_Star(3), new AI_Star(3)); // Lancer une partie entre deux IA Star
         //startMatch(new AI_Star(2), new AI_Sweep(2)); // Lancer une partie entre une IA Sweep et une IA Star
-        startMatch(new AI_MinMax(2,new LigneColEval()), new AI_MinMax(2,new LigneColEval())); // Lancer une partie entre un joueur humain et une IA Sweep
+        startMatch(new AI_MinMax(3,new WinLossEval()), new AI_MinMax(3,new WinLossEval())); // Lancer une partie entre un joueur humain et une IA Sweep
     }
 
 }

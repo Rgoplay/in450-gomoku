@@ -3,10 +3,9 @@ package projet1.gomoku.controllers.ai;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Stream;
 
-import projet1.gomoku.controllers.PlayerController;
+import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.eval.EvalFunction;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -14,22 +13,11 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
-public class AI_Depth1 extends PlayerController {
+public class AI_Depth1 extends AIPlayer {
 
-
-	private int depth = 0;
-	private EvalFunction eval;
-	
     public AI_Depth1(int minimaxDepth, EvalFunction eval){
-       depth = minimaxDepth;
-       this.eval = eval;
-    }
-
-    public AI_Depth1(){
-        super();
-    }
-
-    
+        super(minimaxDepth, eval);
+    } 
 
     
     public Coords[] getAvailableMoves(GomokuBoard board, Player player){
@@ -59,7 +47,7 @@ public class AI_Depth1 extends PlayerController {
 
 	@Override
 	public Coords play(GomokuBoard board, Player player) {
-		// on retournelepremier coup
+		// on retourne le premier coup
 		return getAvailableMoves(board, player)[0];
 	}
 }

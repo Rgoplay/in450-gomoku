@@ -4,7 +4,7 @@ import projet1.gomoku.gamecore.enums.TileState;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
 /**Plateau de Gomoku*/
-public class GomokuBoard extends Array2D<TileState>{
+public class GomokuBoard extends Array2DFixed{ // Array2D<TileState> old type
 
     /**Taille du plateau*/
     public static final int size = 15;

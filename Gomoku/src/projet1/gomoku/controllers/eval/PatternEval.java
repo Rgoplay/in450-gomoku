@@ -2,14 +2,15 @@ package projet1.gomoku.controllers.eval;
 
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
+import projet1.gomoku.gamecore.enums.TileState;
 
 public class PatternEval extends EvalFunction {
 	
 	private int[] scores = new int[243]; // 3^5 patterns possibles
 	
 	public PatternEval() {
-		int p3Value = 10;
-		int p4Value = 1000;
+		int p3Value = 100;
+		int p4Value = 10000;
 		int p5Value = 999999999;
 		
 		// 3 blancs
@@ -75,6 +76,7 @@ public class PatternEval extends EvalFunction {
 		
 		// On calcule pour les blancs, donc il faut inverser si le joueur est noir
 		int coef = player == Player.White ? 1 : -1;
+		TileState playerTile = player == Player.White ? TileState.White : TileState.Black;
 		int score = 0;
 		for(int y = 0; y <= 10; y++) {
             for(int x = 0; x <= 10; x++) {
@@ -87,6 +89,12 @@ public class PatternEval extends EvalFunction {
 
                 // de 4 à 14 en x
                 score += coef*getScore(convint_diagSW(x+4,y, board));
+                
+                if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
+                	if(board.get(x, y) == playerTile) {
+                		score += 1;
+                	}
+                }
             }
 		}
 		return score;

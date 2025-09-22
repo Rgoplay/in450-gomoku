@@ -1,10 +1,5 @@
 package projet1.gomoku.controllers.ai;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.eval.EvalFunction;
 import projet1.gomoku.gamecore.Coords;

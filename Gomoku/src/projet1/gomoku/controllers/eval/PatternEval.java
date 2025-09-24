@@ -14,42 +14,42 @@ public class PatternEval extends EvalFunction {
 		int p5Value = 999999999;
 		
 		// 3 blancs
-	    scores[encode(0,0,1,1,1)] = p3Value;
+	    scores[encode(0,0,1,1,1)] = 2*p3Value;
 	    scores[encode(0,1,0,1,1)] = p3Value;
 	    scores[encode(0,1,1,0,1)] = p3Value;
-	    scores[encode(0,1,1,1,0)] = p3Value;
+	    scores[encode(0,1,1,1,0)] = 3*p3Value;
 	    scores[encode(1,0,0,1,1)] = p3Value;
 	    scores[encode(1,0,1,0,1)] = p3Value;
 	    scores[encode(1,0,1,1,0)] = p3Value;
 	    scores[encode(1,1,0,0,1)] = p3Value;
 	    scores[encode(1,1,0,1,0)] = p3Value;
-	    scores[encode(1,1,1,0,0)] = p3Value;
+	    scores[encode(1,1,1,0,0)] = 2*p3Value;
 
 	    // 3 noirs
-	    scores[encode(0,0,2,2,2)] = -p3Value;
+	    scores[encode(0,0,2,2,2)] = -2*p3Value;
 	    scores[encode(0,2,0,2,2)] = -p3Value;
 	    scores[encode(0,2,2,0,2)] = -p3Value;
-	    scores[encode(0,2,2,2,0)] = -p3Value;
+	    scores[encode(0,2,2,2,0)] = -3*p3Value;
 	    scores[encode(2,0,0,2,2)] = -p3Value;
 	    scores[encode(2,0,2,0,2)] = -p3Value;
 	    scores[encode(2,0,2,2,0)] = -p3Value;
 	    scores[encode(2,2,0,0,2)] = -p3Value;
 	    scores[encode(2,2,0,2,0)] = -p3Value;
-	    scores[encode(2,2,2,0,0)] = -p3Value;
+	    scores[encode(2,2,2,0,0)] = -2*p3Value;
 
 	    // 4 blancs
-	    scores[encode(0,1,1,1,1)] = p4Value;
+	    scores[encode(0,1,1,1,1)] = 2*p4Value;
 	    scores[encode(1,0,1,1,1)] = p4Value;
 	    scores[encode(1,1,0,1,1)] = p4Value;
 	    scores[encode(1,1,1,0,1)] = p4Value;
-	    scores[encode(1,1,1,1,0)] = p4Value;
+	    scores[encode(1,1,1,1,0)] = 2*p4Value;
 
 	    // 4 noirs
-	    scores[encode(0,2,2,2,2)] = -p4Value;
+	    scores[encode(0,2,2,2,2)] = -2*p4Value;
 	    scores[encode(2,0,2,2,2)] = -p4Value;
 	    scores[encode(2,2,0,2,2)] = -p4Value;
 	    scores[encode(2,2,2,0,2)] = -p4Value;
-	    scores[encode(2,2,2,2,0)] = -p4Value;
+	    scores[encode(2,2,2,2,0)] = -2*p4Value;
 
 	    // 5 blancs
 	    scores[encode(1,1,1,1,1)] = p5Value;

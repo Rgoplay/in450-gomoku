@@ -8,6 +8,7 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
+
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
 public class AI_MinMaxAB_2Limit extends AIPlayer {
 
@@ -19,7 +20,7 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
         boundaryBoard = new int[15][15];
     }
 
-    private int minMax(GomokuBoard board, Player player, int depth, Player minMaxPlayer, int alpha, int beta) {
+    int minMax(GomokuBoard board, Player player, int depth, Player minMaxPlayer, int alpha, int beta) {
 
     	
     	int coef = player == minMaxPlayer ? 1 : -1;

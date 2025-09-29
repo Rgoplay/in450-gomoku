@@ -55,7 +55,7 @@ public class AI_MinMaxAB extends AIPlayer {
     	
         Coords currentCellCoords = new Coords();
         Coords bestCoords = new Coords();
-        int bestScore = -999999999	;
+        int bestScore = -2147483647	;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         
         Player inversePlayer = player == Player.White ? Player.Black : Player.White;
@@ -89,7 +89,7 @@ public class AI_MinMaxAB extends AIPlayer {
 		// on retourne le premier coup
 
 		Coords temp = startMinMax(board, player, depthMax);
-		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
+		//System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
 		return temp;
 	}
 }

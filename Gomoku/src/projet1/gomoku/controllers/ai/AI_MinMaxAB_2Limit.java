@@ -10,7 +10,7 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
 public class AI_MinMaxAB_2Limit extends AIPlayer {
-
+	// TODO debug out ouf bound : resultat minmax -1 en coord
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
 	
@@ -60,7 +60,7 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
     	
         Coords currentCellCoords = new Coords();
         Coords bestCoords = new Coords();
-        int bestScore = -999999999	;
+        int bestScore = -2147483647;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         
         Player inversePlayer = player == Player.White ? Player.Black : Player.White;
@@ -82,7 +82,7 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
                     if(bestScore >= beta) {
                     	return bestCoords;
                     }
-                    alpha = Math.max(alpha, bestScore); 
+                    alpha = Math.max(alpha, bestScore);
                 }
             }
         }
@@ -97,7 +97,7 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
 		
 		initBoundaryBoard(board);
 		Coords temp = startMinMax(board, player, depthMax);
-		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
+		//System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
 		return temp;
 	}
 	

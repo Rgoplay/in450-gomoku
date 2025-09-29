@@ -45,7 +45,7 @@ public class AI_MinMax extends AIPlayer {
     	nbNodeLeafEvaluated = 0;
         Coords currentCellCoords = new Coords();
         Coords bestCoords = new Coords();
-        int bestScore = -999999999;
+        int bestScore = -2147483647;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         //Map<Coords, Integer> moves = new HashMap<>();
         Player inversePlayer = player == Player.White ? Player.Black : Player.White;

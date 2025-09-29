@@ -2,8 +2,9 @@ package projet1.gomoku.benchmark;
 
 import java.util.Random;
 
-import projet1.gomoku.controllers.PlayerController;
+import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
@@ -18,7 +19,7 @@ public class BenchStrength {
      * @param player2 Joueur 2
 	 * @return 
     */
-    public static void startStrengthBench(PlayerController player1, PlayerController player2){
+    public static void startStrengthBench(AIPlayer player1, AIPlayer player2){
     	
     	int player1Victory = 0;
     	int player1Defeat = 0;
@@ -27,24 +28,28 @@ public class BenchStrength {
     	int nbTie = 0;
     	
     	for(int i = 0; i < 100; i++) {
-    		
+    		System.out.printf("Game %d/100\n", i);
 	        GomokuBoard board = new GomokuBoard();
 	        WinnerState winnerState;
 	        
 	        // On joue deux coups au hasard
-	        board.set(new Random().nextInt(0, 14), new Random().nextInt(0, 14), TileState.White);
 	        int x = new Random().nextInt(0, 14);
 	        int y = new Random().nextInt(0, 14);
+	        board.set(x, y, TileState.White);
+	        
+	        x = new Random().nextInt(0, 14);
+	        y = new Random().nextInt(0, 14);
 	        while(board.get(x, y) == TileState.White) {
 	        	x = new Random().nextInt(0, 14);
 		        y = new Random().nextInt(0, 14);
 	        }
+
 	        board.set(x,y, TileState.Black);
 	        
 	        Player currentPlayer = Player.White;
 	
 	        while ((winnerState = board.getWinnerState()) == WinnerState.None){ // Tant que la partie n'est pas finie
-	            Coords move = currentPlayer == Player.White ? player1.play(board, Player.White) : player2.play(board, Player.Black); // Obtenir le coup du joueur
+	            Coords move = currentPlayer == Player.White ? player1.startMinMax(board, Player.White) : player2.startMinMax(board, Player.Black); // Obtenir le coup du joueur
 	            if(move.column == -1) {
 	            	board.print();
 	            	System.out.println(currentPlayer);
@@ -66,7 +71,6 @@ public class BenchStrength {
 	        		player2Victory++;
 	        	}
 	        }
-	        System.out.printf("Game %d/100\n", i);
 	
     	}
     	
@@ -76,6 +80,20 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB(2,new PatternEval()), new AI_MinMaxAB_2Limit(3,new PatternEval())); // Lancer une partie entre un joueur humain et une IA Sweep
+    	startStrengthBench(new AI_MinMaxAB(2,new PatternEval()), new AI_MinMaxAB2L_Sorted(2,new PatternEval())); // Lancer une partie entre un joueur humain et une IA Sweep
     }
 }
+
+/**
+ * Résulatat notable: a meme profondeur (2) AI_MinMaxAB gagne contre AI_MinMaxAB_2Limit, si AI_MinMaxAB joue en premier, meme équitable si AI_MinMaxAB_2Limit joue en premier
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+*/

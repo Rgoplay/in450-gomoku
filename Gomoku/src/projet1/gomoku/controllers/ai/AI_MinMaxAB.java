@@ -47,7 +47,7 @@ public class AI_MinMaxAB extends AIPlayer {
         return value;
     }
     
-    public Coords startMinMax(GomokuBoard board, Player player, int depth){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
     	nbNodeLeafEvaluated = 0;
     	
     	int alpha = -2147483647;
@@ -64,7 +64,7 @@ public class AI_MinMaxAB extends AIPlayer {
                 if (board.get(currentCellCoords) == TileState.Empty){ // Si la case est vide
                     
                     board.set(currentCellCoords, playerCellState); // Jouer le coup
-                    int score = -minMax(board,player,depth-1,inversePlayer, -beta, -alpha); // Evaluer le coup
+                    int score = -minMax(board,player,depthMax-1,inversePlayer, -beta, -alpha); // Evaluer le coup
                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup
                     
                     
@@ -88,8 +88,8 @@ public class AI_MinMaxAB extends AIPlayer {
 	public Coords play(GomokuBoard board, Player player) {
 		// on retourne le premier coup
 
-		Coords temp = startMinMax(board, player, depthMax);
-		//System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
+		Coords temp = startMinMax(board, player);
+		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
 		return temp;
 	}
 }

@@ -11,13 +11,12 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
 public class AI_MinMaxAB_2Limit extends AIPlayer {
-	// TODO debug out ouf bound : resultat minmax -1 en coord
+
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
 	
 	public AI_MinMaxAB_2Limit(int minimaxDepth, EvalFunction eval){
         super(minimaxDepth, eval);
-        boundaryBoard = new int[15][15];
     }
 
     int minMax(GomokuBoard board, Player player, int depth, Player minMaxPlayer, int alpha, int beta) {
@@ -53,25 +52,27 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
         return value;
     }
     
-    private Coords startMinMax(GomokuBoard board, Player player, int depth){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
     	nbNodeLeafEvaluated = 0;
     	
     	int alpha = -2147483647;
     	int beta  = -alpha;
     	
+    	initBoundaryBoard(board);
         Coords currentCellCoords = new Coords();
         Coords bestCoords = new Coords();
         int bestScore = -2147483647;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         
         Player inversePlayer = player == Player.White ? Player.Black : Player.White;
+
         for (currentCellCoords.row = 0; currentCellCoords.row < GomokuBoard.size; currentCellCoords.row++){
             for (currentCellCoords.column = 0; currentCellCoords.column < GomokuBoard.size; currentCellCoords.column++){
                 if (boundaryBoard[currentCellCoords.column][currentCellCoords.row] > 0){ // Si la case est vide
                     
                     board.set(currentCellCoords, playerCellState); // Jouer le coup
                     addPlayableSquares(currentCellCoords.column, currentCellCoords.row);
-                    int score = -minMax(board,player,depth-1,inversePlayer, -beta, -alpha); // Evaluer le coup
+                    int score = -minMax(board,player,depthMax-1,inversePlayer, -beta, -alpha); // Evaluer le coup
                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup
                     removePlayableSquares(currentCellCoords.column, currentCellCoords.row);
                     
@@ -88,22 +89,38 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
             }
         }
 
-       
         return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
+    }
+    private void printBoundary() {
+    	System.out.print("   ");
+        for (int i = 0; i < 15; i++){
+            System.out.print(String.format("%02d ", i)); // Afficher le numéro des colonnes
+        }
+        System.out.println();
+
+        for(int y = 0; y < 15; y++) {
+            System.out.print(String.format("%02d ", y));
+
+            for(int x = 0; x < 15; x++) {
+            	System.out.print(boundaryBoard[x][y] + " ");
+            }
+
+            System.out.println();
+        }
     }
 
 	@Override
 	public Coords play(GomokuBoard board, Player player) {
 		// on retourne le premier coup
 		
-		initBoundaryBoard(board);
-		Coords temp = startMinMax(board, player, depthMax);
-		//System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
+		Coords temp = startMinMax(board, player);
+		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
 		return temp;
 	}
 	
 	
 	private void initBoundaryBoard(GomokuBoard board) {
+		boundaryBoard = new int[15][15];
 		boundaryBoard[7][7] = 1; // autorise une case à jouer (si on commence la partie)
 		for(int x = 0; x < 15; x++) {
 			for(int y = 0; y < 15; y++) {

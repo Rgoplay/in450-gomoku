@@ -15,7 +15,7 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
 public class AI_MinMaxAB2L_Sorted extends AIPlayer {
-	private  final int DEPTHSORT = 0;
+	private  final int DEPTHSORT = 1;
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
 	

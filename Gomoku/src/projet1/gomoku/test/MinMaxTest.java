@@ -1,7 +1,13 @@
 package projet1.gomoku.test;
 
+import java.util.Random;
+
 import projet1.gomoku.controllers.ai.AI_MinMax;
-import projet1.gomoku.controllers.eval.WinLossEval;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
+import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
@@ -16,15 +22,39 @@ public class MinMaxTest {
 	
 	public static void testTakeWinnable() {
 		GomokuBoard board = new GomokuBoard();
-		board.set(new Coords(1,1), TileState.White);
-		board.set(new Coords(1,2), TileState.White);
-		board.set(new Coords(1,3), TileState.White);
-		board.set(new Coords(1,4), TileState.White);
-		//board.set(new Coords(0,0), TileState.White);
-		//board.set(new Coords(1,0), TileState.Black);
+		
+		for(int i = 0; i < 16; i++) {
+			int x = new Random().nextInt(0, 14);
+	        int y = new Random().nextInt(0, 14);
+	        while(board.get(x, y) != TileState.Empty) {
+	        	x = new Random().nextInt(0, 14);
+		        y = new Random().nextInt(0, 14);
+	        }
+	
+	        board.set(x,y, TileState.White);
+	        
+	        x = new Random().nextInt(0, 14);
+	        y = new Random().nextInt(0, 14);
+	        while(board.get(x, y) != TileState.Empty) {
+	        	x = new Random().nextInt(0, 14);
+		        y = new Random().nextInt(0, 14);
+	        }
+	
+	        board.set(x,y, TileState.Black);
+		}
+		
 		board.print();
-		Coords move = new AI_MinMax(3,new WinLossEval()).play(board, Player.White);
-		System.out.println("Column: " + move.column + " Row: " + move.row);
+		Coords move = new AI_MinMax(3,new PatternEval()).play(board, Player.White);
+		System.out.println("1 | Column: " + move.column + " Row: " + move.row);
+		move = new AI_MinMaxAB(3,new PatternEval()).play(board, Player.White);
+		System.out.println("2 | Column: " + move.column + " Row: " + move.row);
+		move = new AI_MinMaxAB_2Limit(3,new PatternEval()).play(board, Player.White);
+		System.out.println("3 | Column: " + move.column + " Row: " + move.row);
+		move = new AI_MinMaxAB2L_Sorted(3,new PatternEval()).play(board, Player.White);
+		System.out.println("4 | Column: " + move.column + " Row: " + move.row);
+		move = new AI_MinMaxAB2LS_Opti(3,new PatternEval()).play(board, Player.White);
+		System.out.println("5 | Column: " + move.column + " Row: " + move.row);
+		
 	}
 
 }

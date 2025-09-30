@@ -4,6 +4,7 @@ import java.util.Random;
 
 import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
 import projet1.gomoku.controllers.eval.PatternEval;
@@ -80,12 +81,12 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB(2,new PatternEval()), new AI_MinMaxAB2L_Sorted(2,new PatternEval())); // Lancer une partie entre un joueur humain et une IA Sweep
+    	startStrengthBench(new AI_MinMaxAB(2,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new PatternEval())); // Lancer une partie entre un joueur humain et une IA Sweep
     }
 }
 
 /**
- * Résulatat notable: a meme profondeur (2) AI_MinMaxAB gagne contre AI_MinMaxAB_2Limit, si AI_MinMaxAB joue en premier, meme équitable si AI_MinMaxAB_2Limit joue en premier
+ * Résultat notable: a meme profondeur (2) AI_MinMaxAB gagne contre AI_MinMaxAB_2Limit, si AI_MinMaxAB joue en premier, meme équitable si AI_MinMaxAB_2Limit joue en premier
  * 
  * 
  * 

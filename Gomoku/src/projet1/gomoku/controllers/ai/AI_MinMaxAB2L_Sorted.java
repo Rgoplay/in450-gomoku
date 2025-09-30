@@ -15,7 +15,7 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
 public class AI_MinMaxAB2L_Sorted extends AIPlayer {
-	private  final int DEPTHSORT = 1;
+	private  final int DEPTHSORT = 0;
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
 	
@@ -42,11 +42,12 @@ public class AI_MinMaxAB2L_Sorted extends AIPlayer {
                     if(depth > DEPTHSORT+1) {
                     	board.set(currentCellCoords, playerCellState); // Jouer le coup
                         addPlayableSquares(currentCellCoords.column, currentCellCoords.row);
-	                    int tempValue = -minMax_nonSorted(board,player,DEPTHSORT, inverseMinMaxPlayer,-beta, -alpha); // Evaluer le coup
+	                    int tempValue = -minMax_nonSorted(board,player,DEPTHSORT, inverseMinMaxPlayer, -2147483647, 2147483647); // Evaluer le coup
 	                    board.set(currentCellCoords, TileState.Empty); // Annuler le coup
 	                    removePlayableSquares(currentCellCoords.column, currentCellCoords.row);
 	                    
 	                    tab.add(new Pair(tempValue, currentCellCoords.clone()));
+	                    
                     }
                     else {
                     	tab.add(new Pair(0,currentCellCoords.clone()));
@@ -128,7 +129,7 @@ public class AI_MinMaxAB2L_Sorted extends AIPlayer {
                     
                 	 board.set(currentCellCoords, playerCellState); // Jouer le coup
                      addPlayableSquares(currentCellCoords.column, currentCellCoords.row);
-                     int score = -minMax_nonSorted(board,player,DEPTHSORT, inversePlayer,-beta, -alpha); // Evaluer le coup
+                     int score = -minMax_nonSorted(board,player,DEPTHSORT, inversePlayer, alpha, beta); // Evaluer le coup
                      board.set(currentCellCoords, TileState.Empty); // Annuler le coup
                      removePlayableSquares(currentCellCoords.column, currentCellCoords.row);
                     
@@ -159,9 +160,6 @@ public class AI_MinMaxAB2L_Sorted extends AIPlayer {
 	        }
 	        alpha = Math.max(alpha, bestScore); 
 		}
-        if(bestCoords.row == -1) {
-        	System.out.println("aaa");
-        }
         return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
     }
 

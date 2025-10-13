@@ -41,11 +41,11 @@ public class AI_MinMax extends AIPlayer {
         return value;
     }
     
-    public Coords startMinMax(GomokuBoard board, Player player, int depth){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
     	nbNodeLeafEvaluated = 0;
         Coords currentCellCoords = new Coords();
         Coords bestCoords = new Coords();
-        int bestScore = -999999999;
+        int bestScore = -2147483647;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         //Map<Coords, Integer> moves = new HashMap<>();
         Player inversePlayer = player == Player.White ? Player.Black : Player.White;
@@ -54,7 +54,7 @@ public class AI_MinMax extends AIPlayer {
                 if (board.get(currentCellCoords) == TileState.Empty){ // Si la case est vide
                     
                     board.set(currentCellCoords, playerCellState); // Jouer le coup
-                    int score = -minMax(board,player,depth-1,inversePlayer); // Evaluer le coup
+                    int score = -minMax(board,player,depthMax-1,inversePlayer); // Evaluer le coup
                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup
                     
                     
@@ -75,6 +75,6 @@ public class AI_MinMax extends AIPlayer {
 	@Override
 	public Coords play(GomokuBoard board, Player player) {
 		// on retourne le premier coup
-		return startMinMax(board, player, depthMax);
+		return startMinMax(board, player);
 	}
 }

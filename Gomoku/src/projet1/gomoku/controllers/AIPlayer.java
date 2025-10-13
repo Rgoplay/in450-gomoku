@@ -19,5 +19,6 @@ public abstract class AIPlayer extends PlayerController {
 	}
 
 	public abstract Coords play(GomokuBoard board, Player player);
+	public abstract Coords startMinMax(GomokuBoard board, Player player);
 
 }

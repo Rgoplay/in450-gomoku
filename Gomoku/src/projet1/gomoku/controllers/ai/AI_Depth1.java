@@ -44,6 +44,10 @@ public class AI_Depth1 extends AIPlayer {
 
         return sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
     }
+    
+    public Coords startMinMax(GomokuBoard board, Player player){
+    	return getAvailableMoves(board, player)[0];
+    }
 
 	@Override
 	public Coords play(GomokuBoard board, Player player) {

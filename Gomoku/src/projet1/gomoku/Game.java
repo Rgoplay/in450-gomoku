@@ -1,5 +1,6 @@
 package projet1.gomoku;
 
+import projet1.gomoku.controllers.NetWorkPlayer;
 import projet1.gomoku.controllers.PlayerController;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
@@ -81,7 +82,15 @@ public class Game {
        // startMatch(new AI_Sweep(2), new AI_Sweep(2)); // Lancer une partie entre deux IA Sweep
         //startMatch(new AI_Star(3), new AI_Star(3)); // Lancer une partie entre deux IA Star
         //startMatch(new AI_Star(2), new AI_Sweep(2)); // Lancer une partie entre une IA Sweep et une IA Star
-        startMatch(new AI_MinMaxAB2LS_Opti(5,new PatternEval()), new AI_MinMaxAB2LS_Opti(5,new Pattern6())); // Lancer une partie entre un joueur humain et une IA Sweep
+        //startMatch(new AI_MinMaxAB2LS_Opti(5,new PatternEval()), new AI_MinMaxAB2LS_Opti(5,new Pattern6())); // Lancer une partie entre un joueur humain et une IA Sweep
+        
+        //MACHINE 1 : 
+        
+        startMatch(new AI_MinMaxAB2LS_Opti(5,new PatternEval()), new NetWorkPlayer("192.168.32.237"));
+        
+        //MACHINE 2 : 
+        
+        //startMatch(new NetWorkPlayer("192.168.32.237"),new AI_MinMaxAB2LS_Opti(5,new PatternEval())); 
     }
 
 }

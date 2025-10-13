@@ -7,6 +7,7 @@ import projet1.gomoku.controllers.ai.AI_MinMaxAB;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
+import projet1.gomoku.controllers.eval.Pattern6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -59,6 +60,7 @@ public class BenchStrength {
 	
 	            currentPlayer = currentPlayer == Player.White ? Player.Black : Player.White; // Changer de joueur
 	        }
+	        board.print();
 	
 	        if (winnerState == WinnerState.Tie) {
 	        	nbTie++;
@@ -81,7 +83,7 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB(2,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new PatternEval())); // Lancer une partie entre un joueur humain et une IA Sweep
+    	startStrengthBench(new AI_MinMaxAB2LS_Opti(2,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new Pattern6()));
     }
 }
 

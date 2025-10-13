@@ -1,8 +1,10 @@
 package projet1.gomoku.benchmark;
 
-import projet1.gomoku.controllers.PlayerController;
+import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_Depth1;
+import projet1.gomoku.controllers.ai.AI_MinMax;
 import projet1.gomoku.controllers.eval.EvalFunction;
+import projet1.gomoku.controllers.eval.Pattern6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.controllers.eval.WinLossEval;
 import projet1.gomoku.gamecore.Coords;
@@ -18,7 +20,7 @@ public class BenchEvalFunction {
     public static void startBench(EvalFunction eval, int nbOfRuns){
         GomokuBoard board = new GomokuBoard();
         Player currentPlayer = Player.White;
-        PlayerController p = new AI_Depth1(0, new WinLossEval());
+        AIPlayer p = new AI_MinMax(1, new PatternEval());
         int evalScore = 0;
 
         while (board.getWinnerState() == WinnerState.None){ // Tant que la partie n'est pas finie
@@ -37,14 +39,14 @@ public class BenchEvalFunction {
         double avgTime = ((double)functTotalEvalTime)/((double)nbOfRuns); 
 
         System.out.println("Benchmark :");
-        System.out.println("Eval: " + evalScore);
+        System.out.println("Eval: " + evalScore + "\n");
         System.out.printf("Temps moyen: %f us", avgTime*1000);// on passe en us
         board.print();
         
     }
 
     public static void main(String[] args) {
-        startBench(new PatternEval(), 1000000);
+        startBench(new Pattern6(), 1000000);
     }
 
 

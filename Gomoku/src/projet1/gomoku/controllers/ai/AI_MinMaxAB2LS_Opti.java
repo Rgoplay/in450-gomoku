@@ -39,10 +39,8 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
                 if (boundaryBoard[currentCellCoords.column][currentCellCoords.row] > 0){ // Si la case est vide
                     if(depth > 1) {
                     	board.set(currentCellCoords, playerCellState); // Jouer le coup
-                        addPlayableSquares(currentCellCoords.column, currentCellCoords.row);
 	                    int tempValue = eval.evaluateBoard(board, minMaxPlayer); // Evaluer le coup
 	                    board.set(currentCellCoords, TileState.Empty); // Annuler le coup
-	                    removePlayableSquares(currentCellCoords.column, currentCellCoords.row);
 	                    
 	                    tab.add(new Pair(tempValue, currentCellCoords.clone()));
 	                    
@@ -96,11 +94,8 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
                 if (boundaryBoard[currentCellCoords.column][currentCellCoords.row] > 0){ // Si la case est vide
                     
                 	 board.set(currentCellCoords, playerCellState); // Jouer le coup
-                     addPlayableSquares(currentCellCoords.column, currentCellCoords.row);
                      int score = eval.evaluateBoard(board, player); // Evaluer le coup
-                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup
-                     removePlayableSquares(currentCellCoords.column, currentCellCoords.row);
-                    
+                     board.set(currentCellCoords, TileState.Empty); // Annuler le coup              
                      
                      tab.add(new Pair(score, currentCellCoords.clone()));
                     

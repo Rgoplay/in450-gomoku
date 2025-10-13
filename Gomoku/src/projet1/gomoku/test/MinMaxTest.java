@@ -7,6 +7,7 @@ import projet1.gomoku.controllers.ai.AI_MinMaxAB;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
+import projet1.gomoku.controllers.eval.Pattern6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -54,6 +55,8 @@ public class MinMaxTest {
 		System.out.println("4 | Column: " + move.column + " Row: " + move.row);
 		move = new AI_MinMaxAB2LS_Opti(3,new PatternEval()).play(board, Player.White);
 		System.out.println("5 | Column: " + move.column + " Row: " + move.row);
+		move = new AI_MinMaxAB2LS_Opti(3,new Pattern6()).play(board, Player.White);
+		System.out.println("6 | Column: " + move.column + " Row: " + move.row);
 		
 	}
 

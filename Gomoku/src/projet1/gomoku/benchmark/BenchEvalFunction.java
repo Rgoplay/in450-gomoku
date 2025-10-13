@@ -40,7 +40,7 @@ public class BenchEvalFunction {
 
         System.out.println("Benchmark :");
         System.out.println("Eval: " + evalScore + "\n");
-        System.out.printf("Temps moyen: %f us", avgTime*1000);// on passe en us
+        System.out.printf("Temps moyen: %f us\n\n", avgTime*1000);// on passe en us
         board.print();
         
     }

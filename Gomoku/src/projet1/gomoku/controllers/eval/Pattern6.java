@@ -52,6 +52,8 @@ public class Pattern6 extends EvalFunction {
 		ids[encode(0,1,1,1,1,2)] = W_CLOSED_FOUR;
 		ids[encode(0,1,1,1,0,1)] = W_BROKEN_FOUR;
 		ids[encode(1,0,1,1,1,0)] = W_BROKEN_FOUR;
+		ids[encode(1,1,1,0,1,0)] = W_BROKEN_FOUR;
+		ids[encode(0,1,0,1,1,1)] = W_BROKEN_FOUR;
 		ids[encode(1,1,1,1,0,0)] = W_SIDE_FOUR;
 		ids[encode(0,0,1,1,1,1)] = W_SIDE_FOUR;
 		
@@ -77,6 +79,8 @@ public class Pattern6 extends EvalFunction {
 		ids[encode(0,2,2,2,2,1)] = B_CLOSED_FOUR;
 		ids[encode(0,2,2,2,0,2)] = B_BROKEN_FOUR;
 		ids[encode(2,0,2,2,2,0)] = B_BROKEN_FOUR;
+		ids[encode(2,2,2,0,2,0)] = B_BROKEN_FOUR;
+		ids[encode(0,2,0,2,2,2)] = B_BROKEN_FOUR;
 		ids[encode(0,2,2,2,2,2)] = B_SIDE_FOUR;
 		ids[encode(2,2,2,2,2,0)] = B_SIDE_FOUR;
 		
@@ -113,6 +117,9 @@ public class Pattern6 extends EvalFunction {
 		
 		// Compte le nombre de patterns de chaque categorie
 		int[] patternsCounter = new int[17];
+		for(int i = 0; i < 17; i++) {
+			patternsCounter[i] = 0;
+		}
 		for(int y = 0; y <= 9; y++) {
             for(int x = 0; x <= 9; x++) {
             	
@@ -127,23 +134,22 @@ public class Pattern6 extends EvalFunction {
                 
                 if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
                 	if(board.get(x, y) == playerTile) {
-                		score += 1;
+                		//score += 1;
                 	} else if(board.get(x, y) == enemyTile) {
-                		score -= 1;
+                		//score -= 1;
                 	}
                 }
             }
 		}
-		
 		// Calcul du score
 		// Attention les combinaisons de 3 et de 4 peuvent etre confondue (memes pièces)
 		if(player == Player.White) { // Blancs
 			// Victoire
-			if((patternsCounter[W_WIN] + patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 1 || patternsCounter[W_OPEN_THREE] >= 2) {
+			if((patternsCounter[W_WIN] + patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 1) {
 				score += SCORE_WIN;
 			}
 			// Défaite
-			else if(patternsCounter[B_WIN] >= 1 || (patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 2 || patternsCounter[B_OPEN_THREE] >= 2) {
+			else if(patternsCounter[B_WIN] >= 1 || (patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 2) {
 				score -= SCORE_WIN;
 			}
 			else {
@@ -163,11 +169,11 @@ public class Pattern6 extends EvalFunction {
 		
 		} else { // Noirs
 			// Victoire
-			if((patternsCounter[B_WIN] + patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 1 || patternsCounter[B_OPEN_THREE] >= 2) {
+			if((patternsCounter[B_WIN] + patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 1) {
 				score += SCORE_WIN;
 			}
 			// Défaite
-			else if(patternsCounter[W_WIN] >= 1 || (patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 2 || patternsCounter[W_OPEN_THREE] >= 2) {
+			else if(patternsCounter[W_WIN] >= 1 || (patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 2) {
 				score -= SCORE_WIN;
 			}
 			else {

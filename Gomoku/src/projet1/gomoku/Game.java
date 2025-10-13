@@ -1,6 +1,7 @@
 package projet1.gomoku;
 
 import projet1.gomoku.controllers.PlayerController;
+import projet1.gomoku.controllers.ai.AI_MinMaxAB;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
@@ -81,7 +82,7 @@ public class Game {
        // startMatch(new AI_Sweep(2), new AI_Sweep(2)); // Lancer une partie entre deux IA Sweep
         //startMatch(new AI_Star(3), new AI_Star(3)); // Lancer une partie entre deux IA Star
         //startMatch(new AI_Star(2), new AI_Sweep(2)); // Lancer une partie entre une IA Sweep et une IA Star
-        startMatch(new AI_MinMaxAB2LS_Opti(5,new PatternEval()), new AI_MinMaxAB2LS_Opti(5,new Pattern6())); // Lancer une partie entre un joueur humain et une IA Sweep
+        startMatch(new AI_MinMaxAB(2,new Pattern6()), new AI_MinMaxAB2LS_Opti(6,new Pattern6())); // Lancer une partie entre un joueur humain et une IA Sweep
     }
 
 }

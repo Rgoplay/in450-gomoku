@@ -68,13 +68,14 @@ public class AI_MinMax extends AIPlayer {
         }
 
         //Stream<Map.Entry<Coords, Integer>> sorted = moves.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())); // Trier les coups par ordre de priorité décroissante
-        System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
         return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
     }
 
 	@Override
 	public Coords play(GomokuBoard board, Player player) {
 		// on retourne le premier coup
-		return startMinMax(board, player);
+		Coords temp = startMinMax(board, player);
+		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
+		return temp;
 	}
 }

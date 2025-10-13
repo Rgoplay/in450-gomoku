@@ -28,7 +28,7 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
     	Player inverseMinMaxPlayer = minMaxPlayer == Player.White ? Player.Black : Player.White;
         if (depth == 0 || board.getWinnerState() != WinnerState.None) {
         	nbNodeLeafEvaluated++;
-        	return eval.evaluateBoard(board, minMaxPlayer)+depth; // On rajoute depth afin de privilégier les victoire rapide aux longues
+        	return eval.evaluateBoard(board, minMaxPlayer)+2*depth; // On rajoute depth afin de privilégier les victoire rapide aux longues
         }
         int value = Integer.MIN_VALUE + 1; //nbr max
         Coords currentCellCoords = new Coords();

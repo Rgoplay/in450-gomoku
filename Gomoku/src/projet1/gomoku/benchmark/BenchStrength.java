@@ -3,6 +3,7 @@ package projet1.gomoku.benchmark;
 import java.util.Random;
 
 import projet1.gomoku.controllers.AIPlayer;
+import projet1.gomoku.controllers.ai.AI_MinMax;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
@@ -60,7 +61,7 @@ public class BenchStrength {
 	
 	            currentPlayer = currentPlayer == Player.White ? Player.Black : Player.White; // Changer de joueur
 	        }
-	        board.print();
+	        //board.print();
 	
 	        if (winnerState == WinnerState.Tie) {
 	        	nbTie++;
@@ -83,7 +84,7 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB2LS_Opti(2,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new Pattern6()));
+    	startStrengthBench(new AI_MinMaxAB2LS_Opti(2,new Pattern6()), new AI_MinMaxAB2LS_Opti(2,new PatternEval()));
     }
 }
 

@@ -11,24 +11,27 @@ public class Pattern6 extends EvalFunction {
 	// Constants
 	// Ne commence pas à 0 car la valeur par défaut du tableau est 0
 	private static final int W_WIN = 1;
-	private static final int W_CLOSED_FOUR = 2;
-	private static final int W_BROKEN_FOUR = 3;
-	private static final int W_SIDE_FOUR = 4;
-	private static final int W_OPEN_THREE = 5;
-	private static final int W_CLOSED_THREE = 6;
-	private static final int W_BROKEN_THREE = 7;
-	private static final int W_SIDE_THREE = 8;
+	private static final int W_OPEN_FOUR = 2;
+	private static final int W_CLOSED_FOUR = 3;
+	private static final int W_BROKEN_FOUR = 4;
+	private static final int W_SIDE_FOUR = 5;
+	private static final int W_OPEN_THREE = 6;
+	private static final int W_CLOSED_THREE = 7;
+	private static final int W_BROKEN_THREE = 8;
+	private static final int W_SIDE_THREE = 9;
 	
-	private static final int B_WIN = 9;
-	private static final int B_CLOSED_FOUR = 10;
-	private static final int B_BROKEN_FOUR = 11;
-	private static final int B_SIDE_FOUR = 12;
-	private static final int B_OPEN_THREE = 13;
-	private static final int B_CLOSED_THREE = 14;
-	private static final int B_BROKEN_THREE = 15;
-	private static final int B_SIDE_THREE = 16;
+	private static final int B_WIN = 10;
+	private static final int B_OPEN_FOUR = 11;
+	private static final int B_CLOSED_FOUR = 12;
+	private static final int B_BROKEN_FOUR = 13;
+	private static final int B_SIDE_FOUR = 14;
+	private static final int B_OPEN_THREE = 15;
+	private static final int B_CLOSED_THREE = 16;
+	private static final int B_BROKEN_THREE = 17;
+	private static final int B_SIDE_THREE = 18;
 	
 	private static final int SCORE_WIN = 999999999;
+	private static final int SCORE_OPEN_FOUR = 500000;
 	private static final int SCORE_BROKEN_FOUR = 50000;
 	private static final int SCORE_CLOSED_FOUR = 50000;
 	private static final int SCORE_SIDE_FOUR = 50000;
@@ -40,59 +43,63 @@ public class Pattern6 extends EvalFunction {
 	public Pattern6() {
 
 		// Les coups recoivent un id en fonction de leur force
+		int a = 1;
+		int b = 2;
 		
-		// Blancs
-	    // 5 alignés
-		ids[encode(0,1,1,1,1,1)] = W_WIN;
-		ids[encode(1,1,1,1,1,0)] = W_WIN;
+		// Blancs puis noirs
+		for(int i = 0; i < 2; i++) {
+			int offset = i*9;
+
+		    // 5 alignés
+			ids[encode(0,a,a,a,a,a)] = W_WIN+offset;
+			ids[encode(a,a,a,a,a,0)] = W_WIN+offset;
+			
+			// 4
+			ids[encode(0,a,a,a,a,0)] = W_OPEN_FOUR+offset;
+			
+			ids[encode(b,a,a,a,a,0)] = W_CLOSED_FOUR+offset;
+			ids[encode(0,a,a,a,a,b)] = W_CLOSED_FOUR+offset;
+			
+			ids[encode(0,a,a,a,0,a)] = W_BROKEN_FOUR+offset;
+			ids[encode(a,0,a,a,a,0)] = W_BROKEN_FOUR+offset;
+			ids[encode(b,a,a,a,0,a)] = W_BROKEN_FOUR+offset;
+			ids[encode(a,0,a,a,a,b)] = W_BROKEN_FOUR+offset;
+			
+			ids[encode(a,a,a,0,a,0)] = W_BROKEN_FOUR+offset;
+			ids[encode(0,a,0,a,a,a)] = W_BROKEN_FOUR+offset;
+			ids[encode(a,a,a,0,a,b)] = W_BROKEN_FOUR+offset;
+			ids[encode(b,a,0,a,a,a)] = W_BROKEN_FOUR+offset;
+			
+			
+			ids[encode(0,a,a,0,a,a)] = W_BROKEN_FOUR+offset;
+			ids[encode(a,a,0,a,a,0)] = W_BROKEN_FOUR+offset;
+			ids[encode(b,a,a,0,a,a)] = W_BROKEN_FOUR+offset;
+			ids[encode(a,a,0,a,a,b)] = W_BROKEN_FOUR+offset;
+			
+			ids[encode(a,a,a,a,0,0)] = W_SIDE_FOUR+offset;
+			ids[encode(0,0,a,a,a,a)] = W_SIDE_FOUR+offset;
+			ids[encode(a,a,a,a,0,b)] = W_SIDE_FOUR+offset;
+			ids[encode(b,0,a,a,a,a)] = W_SIDE_FOUR+offset;
+			
+			// 3
+			ids[encode(0,0,a,a,a,0)] = W_OPEN_THREE+offset;
+			ids[encode(0,a,a,a,0,0)] = W_OPEN_THREE+offset;
+			
+			ids[encode(b,a,a,a,0,0)] = W_CLOSED_THREE+offset;
+			ids[encode(0,0,a,a,a,b)] = W_CLOSED_THREE+offset;
+			
+			ids[encode(0,a,a,0,a,0)] = W_BROKEN_THREE+offset;
+			ids[encode(0,a,0,a,a,0)] = W_BROKEN_THREE+offset;
+			
+			ids[encode(a,a,a,0,0,0)] = W_SIDE_THREE+offset;
+			ids[encode(0,0,0,a,a,a)] = W_SIDE_THREE+offset;
+			
+			b = 1;
+			a = 2;
+		}
 		
-		// 4
-		ids[encode(0,1,1,1,1,0)] = W_WIN;
-		ids[encode(2,1,1,1,1,0)] = W_CLOSED_FOUR;
-		ids[encode(0,1,1,1,1,2)] = W_CLOSED_FOUR;
-		ids[encode(0,1,1,1,0,1)] = W_BROKEN_FOUR;
-		ids[encode(1,0,1,1,1,0)] = W_BROKEN_FOUR;
-		ids[encode(1,1,1,0,1,0)] = W_BROKEN_FOUR;
-		ids[encode(0,1,0,1,1,1)] = W_BROKEN_FOUR;
-		ids[encode(1,1,1,1,0,0)] = W_SIDE_FOUR;
-		ids[encode(0,0,1,1,1,1)] = W_SIDE_FOUR;
-		
-		// 3
-		ids[encode(0,0,1,1,1,0)] = W_OPEN_THREE;
-		ids[encode(0,1,1,1,0,0)] = W_OPEN_THREE;
-		ids[encode(2,1,1,1,0,0)] = W_CLOSED_THREE;
-		ids[encode(0,0,1,1,1,2)] = W_CLOSED_THREE;
-		ids[encode(0,1,1,0,1,0)] = W_BROKEN_THREE;
-		ids[encode(0,1,0,1,1,0)] = W_BROKEN_THREE;
-		ids[encode(1,1,1,0,0,0)] = W_SIDE_THREE;
-		ids[encode(0,0,0,1,1,1)] = W_SIDE_THREE;
 		
 		
-		// Noirs
-	    // 5 alignés
-		ids[encode(0,2,2,2,2,2)] = B_WIN;
-		ids[encode(2,2,2,2,2,0)] = B_WIN;
-		
-		// 4
-		ids[encode(0,2,2,2,2,0)] = B_WIN;
-		ids[encode(1,2,2,2,2,0)] = B_CLOSED_FOUR;
-		ids[encode(0,2,2,2,2,1)] = B_CLOSED_FOUR;
-		ids[encode(0,2,2,2,0,2)] = B_BROKEN_FOUR;
-		ids[encode(2,0,2,2,2,0)] = B_BROKEN_FOUR;
-		ids[encode(2,2,2,0,2,0)] = B_BROKEN_FOUR;
-		ids[encode(0,2,0,2,2,2)] = B_BROKEN_FOUR;
-		ids[encode(0,2,2,2,2,2)] = B_SIDE_FOUR;
-		ids[encode(2,2,2,2,2,0)] = B_SIDE_FOUR;
-		
-		// 1
-		ids[encode(0,0,2,2,2,0)] = B_OPEN_THREE;
-		ids[encode(0,2,2,2,0,0)] = B_OPEN_THREE;
-		ids[encode(1,2,2,2,0,0)] = B_CLOSED_THREE;
-		ids[encode(0,0,2,2,2,1)] = B_CLOSED_THREE;
-		ids[encode(0,2,2,0,2,0)] = B_BROKEN_THREE;
-		ids[encode(0,2,0,2,2,0)] = B_BROKEN_THREE;
-		ids[encode(2,2,2,0,0,0)] = B_SIDE_THREE;
-		ids[encode(0,0,0,2,2,2)] = B_SIDE_THREE;
 	}
 	
 	
@@ -116,8 +123,8 @@ public class Pattern6 extends EvalFunction {
 		int score = 0;
 		
 		// Compte le nombre de patterns de chaque categorie
-		int[] patternsCounter = new int[17];
-		for(int i = 0; i < 17; i++) {
+		int[] patternsCounter = new int[19];
+		for(int i = 0; i < 19; i++) {
 			patternsCounter[i] = 0;
 		}
 		for(int y = 0; y <= 9; y++) {
@@ -145,50 +152,66 @@ public class Pattern6 extends EvalFunction {
 		// Attention les combinaisons de 3 et de 4 peuvent etre confondue (memes pièces)
 		if(player == Player.White) { // Blancs
 			// Victoire
-			if((patternsCounter[W_WIN] + patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 1) {
+			if(patternsCounter[W_WIN] >= 1) {
 				score += SCORE_WIN;
 			}
 			// Défaite
-			else if(patternsCounter[B_WIN] >= 1 || (patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 2) {
+			else if(patternsCounter[B_WIN] >= 1) {
 				score -= SCORE_WIN;
 			}
 			else {
-				score += patternsCounter[W_OPEN_THREE]*SCORE_OPEN_THREE;
-				score += patternsCounter[W_BROKEN_THREE]*SCORE_BROKEN_THREE;
-				score += patternsCounter[W_CLOSED_THREE]*SCORE_CLOSED_THREE;
-				score += patternsCounter[W_SIDE_THREE]*SCORE_SIDE_THREE;
+				score += Math.pow(patternsCounter[W_OPEN_THREE], 2)*SCORE_OPEN_THREE;
+				score += Math.pow(patternsCounter[W_BROKEN_THREE], 1.5)*SCORE_BROKEN_THREE;
+				score += Math.pow(patternsCounter[W_CLOSED_THREE], 1.5)*SCORE_CLOSED_THREE;
+				score += Math.pow(patternsCounter[W_SIDE_THREE], 1.5)*SCORE_SIDE_THREE;
 				
-				score -= patternsCounter[B_OPEN_THREE]*SCORE_OPEN_THREE;
-				score -= patternsCounter[B_BROKEN_THREE]*SCORE_BROKEN_THREE;
-				score -= patternsCounter[B_CLOSED_THREE]*SCORE_CLOSED_THREE;
-				score -= patternsCounter[B_SIDE_THREE]*SCORE_SIDE_THREE;
-				score -= patternsCounter[B_CLOSED_FOUR]*SCORE_CLOSED_FOUR;
-				score -= patternsCounter[B_BROKEN_FOUR]*SCORE_BROKEN_FOUR;
-				score -= patternsCounter[B_SIDE_FOUR]*SCORE_SIDE_FOUR;
+				score += Math.pow(patternsCounter[W_OPEN_FOUR], 3)*SCORE_OPEN_FOUR;
+				score += Math.pow(patternsCounter[W_CLOSED_FOUR], 2)*SCORE_CLOSED_FOUR;
+				score += Math.pow(patternsCounter[W_BROKEN_FOUR], 2)*SCORE_BROKEN_FOUR;
+				score += Math.pow(patternsCounter[W_SIDE_FOUR], 2)*SCORE_SIDE_FOUR;
+				
+				
+				score -= Math.pow(patternsCounter[B_OPEN_THREE], 2)*SCORE_OPEN_THREE;
+				score -= Math.pow(patternsCounter[B_BROKEN_THREE], 1.5)*SCORE_BROKEN_THREE;
+				score -= Math.pow(patternsCounter[B_CLOSED_THREE], 1.5)*SCORE_CLOSED_THREE;
+				score -= Math.pow(patternsCounter[B_SIDE_THREE], 1.5)*SCORE_SIDE_THREE;
+				
+				score -= Math.pow(patternsCounter[B_OPEN_FOUR], 3)*SCORE_OPEN_FOUR;
+				score -= Math.pow(patternsCounter[B_CLOSED_FOUR], 2)*SCORE_CLOSED_FOUR;
+				score -= Math.pow(patternsCounter[B_BROKEN_FOUR], 2)*SCORE_BROKEN_FOUR;
+				score -= Math.pow(patternsCounter[B_SIDE_FOUR], 2)*SCORE_SIDE_FOUR;
 			}
 		
 		} else { // Noirs
 			// Victoire
-			if((patternsCounter[B_WIN] + patternsCounter[B_CLOSED_FOUR] + patternsCounter[B_BROKEN_FOUR] + patternsCounter[B_SIDE_FOUR]) >= 1) {
+			if(patternsCounter[B_WIN] >= 1) {
 				score += SCORE_WIN;
 			}
 			// Défaite
-			else if(patternsCounter[W_WIN] >= 1 || (patternsCounter[W_CLOSED_FOUR] + patternsCounter[W_BROKEN_FOUR] + patternsCounter[W_SIDE_FOUR]) >= 2) {
+			else if(patternsCounter[W_WIN] >= 1) {
 				score -= SCORE_WIN;
 			}
 			else {
-				score -= patternsCounter[W_OPEN_THREE]*SCORE_OPEN_THREE;
-				score -= patternsCounter[W_BROKEN_THREE]*SCORE_BROKEN_THREE;
-				score -= patternsCounter[W_CLOSED_THREE]*SCORE_CLOSED_THREE;
-				score -= patternsCounter[W_SIDE_THREE]*SCORE_SIDE_THREE;
-				score -= patternsCounter[W_CLOSED_FOUR]*SCORE_CLOSED_FOUR;
-				score -= patternsCounter[W_BROKEN_FOUR]*SCORE_BROKEN_FOUR;
-				score -= patternsCounter[W_SIDE_FOUR]*SCORE_SIDE_FOUR;
+				score -= Math.pow(patternsCounter[W_OPEN_THREE], 2)*SCORE_OPEN_THREE;
+				score -= Math.pow(patternsCounter[W_BROKEN_THREE], 1.5)*SCORE_BROKEN_THREE;
+				score -= Math.pow(patternsCounter[W_CLOSED_THREE], 1.5)*SCORE_CLOSED_THREE;
+				score -= Math.pow(patternsCounter[W_SIDE_THREE], 1.5)*SCORE_SIDE_THREE;
 				
-				score += patternsCounter[B_OPEN_THREE]*SCORE_OPEN_THREE;
-				score += patternsCounter[B_BROKEN_THREE]*SCORE_BROKEN_THREE;
-				score += patternsCounter[B_CLOSED_THREE]*SCORE_CLOSED_THREE;
-				score += patternsCounter[B_SIDE_THREE]*SCORE_SIDE_THREE;
+				score -= Math.pow(patternsCounter[W_OPEN_FOUR], 3)*SCORE_OPEN_FOUR;
+				score -= Math.pow(patternsCounter[W_CLOSED_FOUR], 2)*SCORE_CLOSED_FOUR;
+				score -= Math.pow(patternsCounter[W_BROKEN_FOUR], 2)*SCORE_BROKEN_FOUR;
+				score -= Math.pow(patternsCounter[W_SIDE_FOUR], 2)*SCORE_SIDE_FOUR;
+				
+				
+				score += Math.pow(patternsCounter[B_OPEN_THREE], 2)*SCORE_OPEN_THREE;
+				score += Math.pow(patternsCounter[B_BROKEN_THREE], 1.5)*SCORE_BROKEN_THREE;
+				score += Math.pow(patternsCounter[B_CLOSED_THREE], 1.5)*SCORE_CLOSED_THREE;
+				score += Math.pow(patternsCounter[B_SIDE_THREE], 1.5)*SCORE_SIDE_THREE;
+				
+				score += Math.pow(patternsCounter[B_OPEN_FOUR], 3)*SCORE_OPEN_FOUR;
+				score += Math.pow(patternsCounter[B_CLOSED_FOUR], 2)*SCORE_CLOSED_FOUR;
+				score += Math.pow(patternsCounter[B_BROKEN_FOUR], 2)*SCORE_BROKEN_FOUR;
+				score += Math.pow(patternsCounter[B_SIDE_FOUR], 2)*SCORE_SIDE_FOUR;
 			}
 		}
 		
@@ -199,16 +222,16 @@ public class Pattern6 extends EvalFunction {
 	// Ordinal() permet de correspondre l'ordre des TileState a un entier
 	
 	private int convint_horiz(int x, int y, GomokuBoard board) {
-	    return board.get(x, y).ordinal() + board.get(x+1, y).ordinal() * 3 + board.get(x+2, y).ordinal() * 9 + board.get(x+3, y).ordinal() * 27 + board.get(x+4, y).ordinal() * 81 + board.get(x+5, y).ordinal() * 243;
+	    return 243 * board.get(x, y).ordinal() + 81 * board.get(x+1, y).ordinal() + 27 * board.get(x+2, y).ordinal() + 9 * board.get(x+3, y).ordinal() + 3 * board.get(x+4, y).ordinal() + board.get(x+5, y).ordinal();
 	}
 	private int convint_vert(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x, y+1).ordinal() * 3 + board.get(x, y+2).ordinal() * 9 + board.get(x, y+3).ordinal() * 27 + board.get(x, y+4).ordinal() * 81 + board.get(x, y+5).ordinal() * 243;
+		return 243 * board.get(x, y).ordinal() + 81 * board.get(x, y+1).ordinal() + 27 * board.get(x, y+2).ordinal() + 9 * board.get(x, y+3).ordinal() + 3 * board.get(x, y+4).ordinal() + board.get(x, y+5).ordinal();
 	}
 	private int convint_diagSE(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x+1, y+1).ordinal() * 3 + board.get(x+2, y+2).ordinal() * 9 + board.get(x+3, y+3).ordinal() * 27 + board.get(x+4, y+4).ordinal() * 81 + board.get(x+5, y+5).ordinal() * 243;
+		return 243 * board.get(x, y).ordinal() + 81 * board.get(x+1, y+1).ordinal() + 27 * board.get(x+2, y+2).ordinal() + 9 * board.get(x+3, y+3).ordinal() + 3 * board.get(x+4, y+4).ordinal() + board.get(x+5, y+5).ordinal();
 	}
 	private int convint_diagSW(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x-1, y+1).ordinal() * 3 + board.get(x-2, y+2).ordinal() * 9 + board.get(x-3, y+3).ordinal() * 27 + board.get(x-4, y+4).ordinal() * 81 + board.get(x-5, y+5).ordinal() * 243;
+		return 243 * board.get(x, y).ordinal() + 81 * board.get(x-1, y+1).ordinal() + 27 * board.get(x-2, y+2).ordinal() + 9 * board.get(x-3, y+3).ordinal() + 3 * board.get(x-4, y+4).ordinal() + board.get(x-5, y+5).ordinal();
 	}
 }
 

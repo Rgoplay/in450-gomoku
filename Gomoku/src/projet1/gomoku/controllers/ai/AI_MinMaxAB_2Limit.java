@@ -89,7 +89,7 @@ public class AI_MinMaxAB_2Limit extends AIPlayer {
             }
         }
 
-        return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
+        return bestCoords; // Retourner les coordonnées des coups
     }
     private void printBoundary() {
     	System.out.print("   ");

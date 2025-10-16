@@ -62,13 +62,11 @@ public class AI_MinMax extends AIPlayer {
                     	bestScore = score;
                     	bestCoords = currentCellCoords.clone();
                     }
-                    //moves.put(currentCellCoords.clone(), score); // Enregistrer le coup
                 }
             }
         }
 
-        //Stream<Map.Entry<Coords, Integer>> sorted = moves.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())); // Trier les coups par ordre de priorité décroissante
-        return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
+        return bestCoords; // Retourner les coordonnées des coups
     }
 
 	@Override

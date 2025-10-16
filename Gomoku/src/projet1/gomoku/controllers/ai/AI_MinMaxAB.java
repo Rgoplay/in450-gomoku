@@ -81,7 +81,7 @@ public class AI_MinMaxAB extends AIPlayer {
         }
 
        
-        return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
+        return bestCoords; // Retourner les coordonnées des coups
     }
 
 	@Override

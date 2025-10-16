@@ -3,7 +3,6 @@ package projet1.gomoku.controllers.ai;
 import java.util.ArrayList;
 
 
-import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.eval.EvalFunction;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -14,20 +13,37 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 
 /**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
-public class AI_MinMaxAB2LS_Opti extends AIPlayer {
+public class Thread_MinMaxAB2LSO_Iterative extends Thread {
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
+	private EvalFunction eval;
+	private int depthMax;
+	private GomokuBoard board;
+	private Player player;
+	private Coords bestCoords;
+	private boolean threadFinishedCleanly;
+	private volatile boolean running = true;
 	
-	public AI_MinMaxAB2LS_Opti(int minimaxDepth, EvalFunction eval){
-        super(minimaxDepth, eval);
+	public Thread_MinMaxAB2LSO_Iterative(int depthMax, EvalFunction eval, GomokuBoard board, Player player){
+        this.eval = eval;
+        this.depthMax = depthMax;
+        this.board = board;
+        this.player = player;
+        bestCoords = new Coords();
+        threadFinishedCleanly = false;
     }
 
     private int minMax(GomokuBoard board, int depth, Player minMaxPlayer, int alpha, int beta) {
+    	
+    	if(!running) {
+    		return 0;
+    	}
+    	
     	ArrayList<Pair> tab = new ArrayList<>();
     	
     	Player inverseMinMaxPlayer = minMaxPlayer == Player.White ? Player.Black : Player.White;
         if (depth == 0 || board.getWinnerState() != WinnerState.None) {
-        	nbNodeLeafEvaluated++;
+        	nbNodeLeafEvaluated = getNbNodeLeafEvaluated() + 1;
         	return eval.evaluateBoard(board, minMaxPlayer)+2*depth; // On rajoute depth afin de privilégier les victoire rapide aux longues
         }
         int value = Integer.MIN_VALUE + 1; //nbr max
@@ -75,7 +91,7 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
     
     
     
-    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public void startMinMax(){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
     	nbNodeLeafEvaluated = 0;
     	ArrayList<Pair> tab = new ArrayList<>();
     	
@@ -84,7 +100,6 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
     	
     	initBoundaryBoard(board);
         Coords currentCellCoords = new Coords();
-        Coords bestCoords = new Coords();
         int bestScore = Integer.MIN_VALUE + 1;
         TileState playerCellState = player == Player.White ? TileState.White : TileState.Black;
         
@@ -120,41 +135,39 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
 	        	bestCoords = pair.getCoords().clone();
 	        }
 	        if(bestScore >= beta) {
-	        	return bestCoords;
+	        	break;
 	        }
 	        alpha = Math.max(alpha, bestScore); 
 		}
-        return bestCoords; // Retourner les coordonnées des coups
+        
     }
+    
+    public void run() {
+    	startMinMax();
+    	if(running) {
+    		threadFinishedCleanly = true;
+    	}
+    	
+    }
+    
+    public void terminate() {
+        running = false;
+    }
+    
+	
+	public int getNbNodeLeafEvaluated() {
+		return nbNodeLeafEvaluated;
+	}
 
-	@Override
-	public Coords play(GomokuBoard board, Player player) {
-		// on retourne le premier coup
-		
-		Coords temp = startMinMax(board, player);
-		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);
-		return temp;
+	public Coords getBestCoords() {
+		return bestCoords;
 	}
 	
-	private void printBoundary() {
-    	System.out.print("   ");
-        for (int i = 0; i < 15; i++){
-            System.out.print(String.format("%02d ", i)); // Afficher le numéro des colonnes
-        }
-        System.out.println();
-
-        for(int y = 0; y < 15; y++) {
-            System.out.print(String.format("%02d ", y));
-
-            for(int x = 0; x < 15; x++) {
-            	System.out.print(boundaryBoard[x][y] + " ");
-            }
-
-            System.out.println();
-        }
-    }
 	
-	
+	public boolean isThreadFinishedCleanly() {
+		return threadFinishedCleanly;
+	}
+
 	private void initBoundaryBoard(GomokuBoard board) {
 		boundaryBoard = new int[15][15];
 		boundaryBoard[7][7] = 1; // autorise une case à jouer (si on commence la partie)
@@ -189,3 +202,4 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
 		boundaryBoard[xOrig][yOrig] += 2000;
 	}
 }
+

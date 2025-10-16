@@ -9,7 +9,7 @@ public class PatternEval extends EvalFunction {
 	private int[] scores = new int[243]; // 3^5 patterns possibles
 	
 	public PatternEval() {
-		int p3Value = 100;
+		int p3Value = 500;
 		int p4Value = 10000;
 		int p5Value = 999999999;
 		
@@ -17,7 +17,7 @@ public class PatternEval extends EvalFunction {
 	    scores[encode(0,0,1,1,1)] = 2*p3Value;
 	    scores[encode(0,1,0,1,1)] = p3Value;
 	    scores[encode(0,1,1,0,1)] = p3Value;
-	    scores[encode(0,1,1,1,0)] = 3*p3Value;
+	    scores[encode(0,1,1,1,0)] = 5*p3Value;
 	    scores[encode(1,0,0,1,1)] = p3Value;
 	    scores[encode(1,0,1,0,1)] = p3Value;
 	    scores[encode(1,0,1,1,0)] = p3Value;
@@ -29,7 +29,7 @@ public class PatternEval extends EvalFunction {
 	    scores[encode(0,0,2,2,2)] = -2*p3Value;
 	    scores[encode(0,2,0,2,2)] = -p3Value;
 	    scores[encode(0,2,2,0,2)] = -p3Value;
-	    scores[encode(0,2,2,2,0)] = -3*p3Value;
+	    scores[encode(0,2,2,2,0)] = -5*p3Value;
 	    scores[encode(2,0,0,2,2)] = -p3Value;
 	    scores[encode(2,0,2,0,2)] = -p3Value;
 	    scores[encode(2,0,2,2,0)] = -p3Value;
@@ -63,7 +63,7 @@ public class PatternEval extends EvalFunction {
 		return scores[pattern];
 	}
 	
-	int encode(int... cells) { // ... veut dire n argument de type int
+	private int encode(int... cells) { // ... veut dire n argument de type int
 	    int key = 0;
 	    for (int c : cells) {
 	        key = key * 3 + c;
@@ -104,15 +104,15 @@ public class PatternEval extends EvalFunction {
 	// Ordinal() permet de correspondre l'ordre des TileState a un entier
 	
 	private int convint_horiz(int x, int y, GomokuBoard board) {
-	    return board.get(x, y).ordinal() + board.get(x+1, y).ordinal() * 3 + board.get(x+2, y).ordinal() * 9 + board.get(x+3, y).ordinal() * 27 + board.get(x+4, y).ordinal() * 81;
+	    return 81 * board.get(x, y).ordinal() + 27 * board.get(x+1, y).ordinal() + 9 * board.get(x+2, y).ordinal() + 3 * board.get(x+3, y).ordinal() + board.get(x+4, y).ordinal();
 	}
 	private int convint_vert(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x, y+1).ordinal() * 3 + board.get(x, y+2).ordinal() * 9 + board.get(x, y+3).ordinal() * 27 + board.get(x, y+4).ordinal() * 81;
+		return 81 * board.get(x, y).ordinal() + 27 * board.get(x, y+1).ordinal() + 9 * board.get(x, y+2).ordinal() + 3 * board.get(x, y+3).ordinal() + board.get(x, y+4).ordinal();
 	}
 	private int convint_diagSE(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x+1, y+1).ordinal() * 3 + board.get(x+2, y+2).ordinal() * 9 + board.get(x+3, y+3).ordinal() * 27 + board.get(x+4, y+4).ordinal() * 81;
+		return 81 * board.get(x, y).ordinal() + 27 * board.get(x+1, y+1).ordinal() + 9 * board.get(x+2, y+2).ordinal() + 3 * board.get(x+3, y+3).ordinal() + board.get(x+4, y+4).ordinal();
 	}
 	private int convint_diagSW(int x, int y, GomokuBoard board) {
-		return board.get(x, y).ordinal() + board.get(x-1, y+1).ordinal() * 3 + board.get(x-2, y+2).ordinal() * 9 + board.get(x-3, y+3).ordinal() * 27 + board.get(x-4, y+4).ordinal() * 81;
+		return 81 * board.get(x, y).ordinal() + 27 * board.get(x-1, y+1).ordinal() + 9 * board.get(x-2, y+2).ordinal() + 3 * board.get(x-3, y+3).ordinal() + board.get(x-4, y+4).ordinal();
 	}
 }

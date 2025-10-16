@@ -160,7 +160,7 @@ public class AI_MinMaxAB2L_Sorted extends AIPlayer {
 	        }
 	        alpha = Math.max(alpha, bestScore); 
 		}
-        return bestCoords;//sorted.map(Map.Entry::getKey).toArray(Coords[]::new); // Retourner les coordonnées des coups
+        return bestCoords; // Retourner les coordonnées des coups
     }
 
 	@Override

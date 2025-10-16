@@ -84,7 +84,7 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB2LS_Opti(2,new Pattern6()), new AI_MinMaxAB2LS_Opti(2,new PatternEval()));
+    	startStrengthBench(new AI_MinMaxAB2LS_Opti(2,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new PatternEval()));
     }
 }
 

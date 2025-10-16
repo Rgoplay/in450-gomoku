@@ -77,6 +77,8 @@ public class PatternEval extends EvalFunction {
 		// On calcule pour les blancs, donc il faut inverser si le joueur est noir
 		int coef = player == Player.White ? 1 : -1;
 		TileState playerTile = player == Player.White ? TileState.White : TileState.Black;
+		TileState enemyTile = playerTile == TileState.Black ? TileState.White : TileState.Black;
+		
 		int score = 0;
 		for(int y = 0; y <= 10; y++) {
             for(int x = 0; x <= 10; x++) {
@@ -93,6 +95,8 @@ public class PatternEval extends EvalFunction {
                 if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
                 	if(board.get(x, y) == playerTile) {
                 		score += 1;
+                	} else if(board.get(x, y) == enemyTile) {
+                		score -= 1;
                 	}
                 }
             }

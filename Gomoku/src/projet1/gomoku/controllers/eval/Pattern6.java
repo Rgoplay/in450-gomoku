@@ -4,6 +4,8 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
+
+// NOTE: Ne fonctionne pas, ne pas utiliser
 public class Pattern6 extends EvalFunction {
 	
 	private int[] ids = new int[729]; // 3^6 patterns possibles
@@ -124,21 +126,22 @@ public class Pattern6 extends EvalFunction {
 		
 		// Compte le nombre de patterns de chaque categorie
 		int[] patternsCounter = new int[19];
+		
 		for(int i = 0; i < 19; i++) {
 			patternsCounter[i] = 0;
 		}
+		
 		for(int y = 0; y <= 9; y++) {
             for(int x = 0; x <= 9; x++) {
-            	
             	patternsCounter[getId(convint_horiz(x,y, board))] += 1;
-              
+            	
                 patternsCounter[getId(convint_vert(x,y, board))] += 1;
-
+		
                 patternsCounter[getId(convint_diagSE(x,y, board))] += 1;
 
                 // de 4 à 14 en x
                 patternsCounter[getId(convint_diagSW(x+5,y, board))] += 1;
-                
+		
                 if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
                 	if(board.get(x, y) == playerTile) {
                 		//score += 1;
@@ -148,6 +151,7 @@ public class Pattern6 extends EvalFunction {
                 }
             }
 		}
+
 		// Calcul du score
 		// Attention les combinaisons de 3 et de 4 peuvent etre confondue (memes pièces)
 		if(player == Player.White) { // Blancs

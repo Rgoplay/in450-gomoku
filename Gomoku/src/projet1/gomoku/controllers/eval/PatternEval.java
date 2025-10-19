@@ -109,6 +109,7 @@ public class PatternEval extends EvalFunction {
                 }
             }
 		}
+		score = score > 999_999_999? 999_999_999 : score;
 		return coef*score;
 	}
 

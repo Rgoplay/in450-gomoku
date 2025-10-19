@@ -12,7 +12,10 @@ import projet1.gomoku.gamecore.enums.TileState;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
 
-/**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
+/**
+ * Classe représentant un MinMax (negamax) avec coupe alpha beta et se limitant à une zone de recherche à deux cases de la zone de jeu
+ * et qui tri les coups uniquement avec la fonction d'eval pour augmenter le nombre de coupes
+ */
 public class AI_MinMaxAB2LS_Opti extends AIPlayer {
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
@@ -131,7 +134,6 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
 
 	@Override
 	public Coords play(GomokuBoard board, Player player) {
-		// on retourne le premier coup
 		
 		Coords temp = startMinMax(board, player);
 		System.out.println("Nb board eval: "+ nbNodeLeafEvaluated);

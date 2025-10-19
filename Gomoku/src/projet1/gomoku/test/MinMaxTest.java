@@ -11,6 +11,9 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
+/**
+ * Permet de vérifier (à la main) que les différentes implémentations retournent des coups correctes sur des tableaux générés aléatoirement
+ */
 public class MinMaxTest {
 
 	public static void main(String[] args) {

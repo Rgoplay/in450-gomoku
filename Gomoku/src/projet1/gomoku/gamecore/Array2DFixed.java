@@ -2,7 +2,7 @@ package projet1.gomoku.gamecore;
 
 import projet1.gomoku.gamecore.enums.TileState;
 
-/**Classe générique pour stocker un tableau 2D de int
+/**Classe générique pour stocker un tableau 2D de int, utilisant un tableau fixe pour de meilleur performances
 */
 public class Array2DFixed implements Cloneable {
 	/**Tableau 2D*/

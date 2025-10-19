@@ -48,9 +48,9 @@ public class EvalFuncTest {
 		
 		board = stringToBoard(strBoard2);
 		patternScore = new PatternEval().evaluateBoard(board, Player.White);
-		System.out.printf("2W | PatternEval %s\n", (patternScore == -1002)?"OK":"FAIL");
+		System.out.printf("2W | PatternEval %s\n", (patternScore == -20502)?"OK":"FAIL");
 		patternScore = new PatternEval().evaluateBoard(board, Player.Black);
-		System.out.printf("2B | PatternEval %s\n", (patternScore == 1002)?"OK":"FAIL");
+		System.out.printf("2B | PatternEval %s\n", (patternScore == 20502)?"OK":"FAIL");
 	}
 	
 	private static GomokuBoard stringToBoard(String[] s) {

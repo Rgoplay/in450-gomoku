@@ -9,7 +9,10 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 
 
-/**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
+/**
+ * Classe représentant une approche itérative de la recherche et qui lance successivement un minmax de profondeur croissante
+ * Le meilleur coup trouvé est retourné après un certains temps
+ */
 public class AI_MinMaxAB2LSO_Iterative extends AIPlayer {
 	private int maxSearchTimeMs;
 	
@@ -25,7 +28,7 @@ public class AI_MinMaxAB2LSO_Iterative extends AIPlayer {
     }
     
     
-    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public Coords startMinMax(GomokuBoard board, Player player){
     	return iterativeDeepening(board, player, false);
     }
 
@@ -108,8 +111,7 @@ public class AI_MinMaxAB2LSO_Iterative extends AIPlayer {
     
     @Override
 	public Coords play(GomokuBoard board, Player player) {
-		// on retourne le premier coup
-		
+
 		return iterativeDeepening(board, player, true);
 	}
 	

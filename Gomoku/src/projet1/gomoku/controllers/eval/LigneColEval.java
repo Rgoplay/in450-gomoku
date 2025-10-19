@@ -6,6 +6,9 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
+/**
+ * Fonction d'évaluation évaluant uniquement les lignes et colonnes
+ */
 public class LigneColEval extends EvalFunction{
 
 	@Override

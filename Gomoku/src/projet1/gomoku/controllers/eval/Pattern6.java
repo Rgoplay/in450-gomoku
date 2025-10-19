@@ -5,7 +5,10 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 
-// NOTE: Ne fonctionne pas, ne pas utiliser
+// NOTE: Ne fonctionne pas (mauvaise eval), ne pas utiliser
+/**
+ * Fonction se basant sur des patterns de 6 cases pour l'évaluation
+ */
 public class Pattern6 extends EvalFunction {
 	
 	private int[] ids = new int[729]; // 3^6 patterns possibles

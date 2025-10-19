@@ -4,6 +4,9 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
+/**
+ * Fonction d'évaluation se basant uniquement sur la victoire ou la défaite
+ */
 public class WinLossEval extends EvalFunction {
 
 	@Override

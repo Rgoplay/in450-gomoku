@@ -5,6 +5,9 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
+/**
+ * Fonction se basant sur des patterns de 5 et quelques de 6 pour son évaluation
+ */
 public class PatternEval extends EvalFunction {
 	
 	private final int[] scores = new int[243]; // 3^5 patterns possibles
@@ -117,13 +120,22 @@ public class PatternEval extends EvalFunction {
 			x = x - dx;
 			y = y - dy;
     		if((x >= 0 && x < 15 && y >= 0 && y < 15 && board.get(x, y) == TileState.Empty) || (tx >= 0 && tx < 15 && y >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
-    			return 9000;
+    			if(patternId == 39) {
+    				return 9000;
+    			} else {
+    				return -9000;
+    			}
+    			
     		}
     	} else if(patternId == 40 || patternId == 80) { // 4 ouvert
     		int tx = x + dx*5;
 			int ty = y + dy*5;
     		if((tx >= 0 && tx < 15 && ty >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
-    			return 100000;
+    			if(patternId == 40) {
+    				return 100000;
+    			} else {
+    				return -100000;
+    			}
     		}
     	}
     	return getScore(patternId);

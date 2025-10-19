@@ -3,6 +3,9 @@ package projet1.gomoku.genetic;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Classe implémentant les fonctions d'un algo génétique
+ */
 class GeneticAlgorithm {
     int populationSize = 40;
     double mutationRate = 0.15;

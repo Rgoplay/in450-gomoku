@@ -12,7 +12,10 @@ import projet1.gomoku.gamecore.enums.TileState;
 import projet1.gomoku.gamecore.enums.WinnerState;
 
 
-/**Représente un IA qui cherche les coups en se positionnant sur chaque case, puis en vérifiant le contenu des 4 cases autour dans les 8 directions */
+
+/**
+ * Classe équivalente à AI_MinMaxAB2LS_Opti, mais héritant de Thread et adaptée à cette utilisation
+ */
 public class Thread_MinMaxAB2LSO_Iterative extends Thread {
 	private int nbNodeLeafEvaluated = 0;
 	private int[][] boundaryBoard;
@@ -92,7 +95,7 @@ public class Thread_MinMaxAB2LSO_Iterative extends Thread {
     
     
     
-    public void startMinMax(){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public void startMinMax(){
     	nbNodeLeafEvaluated = 0;
     	ArrayList<Pair> tab = new ArrayList<>();
     	

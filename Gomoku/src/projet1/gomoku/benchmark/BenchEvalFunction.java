@@ -12,7 +12,7 @@ import projet1.gomoku.gamecore.enums.WinnerState;
 
 public class BenchEvalFunction {
 	    
-    /**Lancer un benchmark de perfromance d'une fonction d'évaluation
+    /**Lancer un benchmark de performance d'une fonction d'évaluation
     */
     public static void startBench(EvalFunction eval, int nbOfRuns){
         GomokuBoard board = new GomokuBoard();

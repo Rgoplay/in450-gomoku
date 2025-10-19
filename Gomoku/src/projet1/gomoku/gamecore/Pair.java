@@ -1,5 +1,8 @@
 package projet1.gomoku.gamecore;
 
+/**
+ * Classe représentant une paire score, coordonnées
+ */
 public class Pair {
 	private Integer score;
 	private Coords coords;

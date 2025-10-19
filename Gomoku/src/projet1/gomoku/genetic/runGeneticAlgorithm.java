@@ -1,5 +1,8 @@
 package projet1.gomoku.genetic;
 
+/**
+ * Classe permaettant d'éxecuter un algo génétique
+ */
 public class runGeneticAlgorithm {
     public static void main(String[] args) {
     	

@@ -4,6 +4,9 @@ import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
+/**
+ * Fonction se basant sur des patterns de 5 pour son évaluation, et adaptée à l'utilisation des poids de l'algo génétique
+ */
 public class PatternEvalGenetic extends EvalFunction {
 	
 	private int[] scores = new int[243]; // 3^5 patterns possibles

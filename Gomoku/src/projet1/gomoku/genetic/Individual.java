@@ -2,6 +2,9 @@ package projet1.gomoku.genetic;
 
 import java.util.Random;
 
+/**
+ * Classe représentant un individu de l'algo génétique, avec des genes et possedant certaines tranformations (mélange, mutation)
+ */
 class Individual {
     private int[] genes;
     private int fitness;

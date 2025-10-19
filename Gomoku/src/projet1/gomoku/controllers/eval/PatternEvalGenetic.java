@@ -7,52 +7,50 @@ import projet1.gomoku.gamecore.enums.TileState;
 public class PatternEvalGenetic extends EvalFunction {
 	
 	private int[] scores = new int[243]; // 3^5 patterns possibles
-	private int[] patternValues;
 	
 	/**
 	 * Attention : on doit passer un tableau de 15 de long
 	 * @param patternValues
 	 */
 	public PatternEvalGenetic(int[] patternValues) {
-		this.patternValues = patternValues;
 		
 		// 3 blancs
-	    scores[encode(0,0,1,1,1)] = patternValues[0];
-	    scores[encode(0,1,0,1,1)] = patternValues[1];
-	    scores[encode(0,1,1,0,1)] = patternValues[2];
-	    scores[encode(0,1,1,1,0)] = patternValues[3];
-	    scores[encode(1,0,0,1,1)] = patternValues[4];
-	    scores[encode(1,0,1,0,1)] = patternValues[5];
-	    scores[encode(1,0,1,1,0)] = patternValues[6];
-	    scores[encode(1,1,0,0,1)] = patternValues[7];
-	    scores[encode(1,1,0,1,0)] = patternValues[8];
-	    scores[encode(1,1,1,0,0)] = patternValues[9];
+	    scores[encode(0,0,1,1,1)] = patternValues[0]*100;
+	    scores[encode(0,1,0,1,1)] = patternValues[1]*100;
+	    scores[encode(0,1,1,0,1)] = patternValues[2]*100;
+	    scores[encode(0,1,1,1,0)] = patternValues[3]*100;
+	    scores[encode(1,0,0,1,1)] = patternValues[4]*100;
+	    scores[encode(1,0,1,0,1)] = patternValues[5]*100;
+	    scores[encode(1,0,1,1,0)] = patternValues[6]*100;
+	    scores[encode(1,1,0,0,1)] = patternValues[7]*100;
+	    scores[encode(1,1,0,1,0)] = patternValues[8]*100;
+	    scores[encode(1,1,1,0,0)] = patternValues[9]*100;
 
 	    // 3 noirs
-	    scores[encode(0,0,2,2,2)] = -patternValues[0];
-	    scores[encode(0,2,0,2,2)] = -patternValues[1];
-	    scores[encode(0,2,2,0,2)] = -patternValues[2];
-	    scores[encode(0,2,2,2,0)] = -patternValues[3];
-	    scores[encode(2,0,0,2,2)] = -patternValues[4];
-	    scores[encode(2,0,2,0,2)] = -patternValues[5];
-	    scores[encode(2,0,2,2,0)] = -patternValues[6];
-	    scores[encode(2,2,0,0,2)] = -patternValues[7];
-	    scores[encode(2,2,0,2,0)] = -patternValues[8];
-	    scores[encode(2,2,2,0,0)] = -patternValues[9];
+	    scores[encode(0,0,2,2,2)] = -patternValues[0]*100;
+	    scores[encode(0,2,0,2,2)] = -patternValues[1]*100;
+	    scores[encode(0,2,2,0,2)] = -patternValues[2]*100;
+	    scores[encode(0,2,2,2,0)] = -patternValues[3]*100;
+	    scores[encode(2,0,0,2,2)] = -patternValues[4]*100;
+	    scores[encode(2,0,2,0,2)] = -patternValues[5]*100;
+	    scores[encode(2,0,2,2,0)] = -patternValues[6]*100;
+	    scores[encode(2,2,0,0,2)] = -patternValues[7]*100;
+	    scores[encode(2,2,0,2,0)] = -patternValues[8]*100;
+	    scores[encode(2,2,2,0,0)] = -patternValues[9]*100;
 
 	    // 4 blancs
-	    scores[encode(0,1,1,1,1)] = patternValues[10];
-	    scores[encode(1,0,1,1,1)] = patternValues[11];
-	    scores[encode(1,1,0,1,1)] = patternValues[12];
-	    scores[encode(1,1,1,0,1)] = patternValues[13];
-	    scores[encode(1,1,1,1,0)] = patternValues[14];
+	    scores[encode(0,1,1,1,1)] = patternValues[10]*1000;
+	    scores[encode(1,0,1,1,1)] = patternValues[11]*1000;
+	    scores[encode(1,1,0,1,1)] = patternValues[12]*1000;
+	    scores[encode(1,1,1,0,1)] = patternValues[13]*1000;
+	    scores[encode(1,1,1,1,0)] = patternValues[14]*1000;
 
 	    // 4 noirs
-	    scores[encode(0,2,2,2,2)] = -patternValues[10];
-	    scores[encode(2,0,2,2,2)] = -patternValues[11];
-	    scores[encode(2,2,0,2,2)] = -patternValues[12];
-	    scores[encode(2,2,2,0,2)] = -patternValues[13];
-	    scores[encode(2,2,2,2,0)] = -patternValues[14];
+	    scores[encode(0,2,2,2,2)] = -patternValues[10]*1000;
+	    scores[encode(2,0,2,2,2)] = -patternValues[11]*1000;
+	    scores[encode(2,2,0,2,2)] = -patternValues[12]*1000;
+	    scores[encode(2,2,2,0,2)] = -patternValues[13]*1000;
+	    scores[encode(2,2,2,2,0)] = -patternValues[14]*1000;
 
 	    // 5 blancs
 	    scores[encode(1,1,1,1,1)] = 999_999_999;
@@ -95,7 +93,7 @@ public class PatternEvalGenetic extends EvalFunction {
                 // de 4 à 14 en x
                 score += coef*getScore(convint_diagSW(x+4,y, board));
                 
-                if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
+                if(x >= 4 && y >= 4) { // x <= 10 && y <= 10 implicite des boucles for
                 	if(board.get(x, y) == playerTile) {
                 		score += 1;
                 	} else if(board.get(x, y) == enemyTile) {

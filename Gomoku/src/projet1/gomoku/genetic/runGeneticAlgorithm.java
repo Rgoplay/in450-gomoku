@@ -6,7 +6,7 @@ public class runGeneticAlgorithm {
         GeneticAlgorithm ga = new GeneticAlgorithm();
 
         // Nombre de générations
-        for (int gen = 0; gen < 50; gen++) {
+        for (int gen = 0; gen < 40; gen++) {
             ga.evaluateAll();
             Individual best = ga.best();
             System.out.println("Gen " + gen + " | Best fitness=" + best.getFitness());

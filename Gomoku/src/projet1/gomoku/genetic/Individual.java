@@ -11,7 +11,7 @@ class Individual {
         genes = new int[n];
         Random random = new Random();
         for (int i = 0; i < n; i++)
-            genes[i] = random.nextInt(100_000);
+            genes[i] = random.nextInt(10);
     }
     
     Individual(Individual other) {
@@ -32,7 +32,13 @@ class Individual {
         for (int i = 0; i < genes.length; i++) {
         	Random random = new Random();
         	if (Math.random() < rate) {
-            	genes[i] += (random.nextInt(1000 + 1000) - 1000) * amplitude;
+            	genes[i] += (random.nextInt(1 + 1) - 1) * amplitude;
+            	if(genes[i] < 0) {
+            		genes[i] = 0;
+            	}
+            	if(genes[i] > 10) {
+            		genes[i] = 10;
+            	}
             }
         }        
     }

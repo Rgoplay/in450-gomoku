@@ -6,6 +6,8 @@ import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.controllers.eval.PatternEvalGenetic;
+import projet1.gomoku.controllers.eval.RandomEval;
+import projet1.gomoku.controllers.eval.WinLossEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
@@ -26,7 +28,16 @@ class FitnessCalculator {
     	AIPlayer player1 = new AI_MinMaxAB2LS_Opti(2, new PatternEval());
     	AIPlayer player2 = new AI_MinMaxAB2LS_Opti(2, new PatternEvalGenetic(ind.getGenes()));
     	
-    	for(int i = 0; i < 30; i++) {
+    	for(int i = 0; i < 50; i++) {
+    		
+    		if(i < 6) {
+    			player1 = new AI_MinMaxAB2LS_Opti(2, new RandomEval());
+    		} else if(i < 15) {
+    			player1 = new AI_MinMaxAB2LS_Opti(3, new WinLossEval());
+    		} else {
+    			player1 = new AI_MinMaxAB2LS_Opti(2, new PatternEval());
+    		}
+    		
 	        GomokuBoard board = new GomokuBoard();
 	        WinnerState winnerState;
 	        Player playerIndividu = Math.random() < 0.5 ? Player.White : Player.Black;

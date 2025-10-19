@@ -1,6 +1,7 @@
 package projet1.gomoku.genetic;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 class GeneticAlgorithm {
     int populationSize = 40;
@@ -19,12 +20,16 @@ class GeneticAlgorithm {
 
     // Evalue chaque individu de la population
     void evaluateAll() {
-    	int i = 0;
-        for (Individual ind : population) {
-        	i += 1;
-        	System.out.printf("Evaluation %d/%d\r", i, populationSize);
+    	//int i = 0;
+        //for (Individual ind : population) {
+    	IntStream.range(0, population.size())
+        .parallel()
+        .forEach(i -> {
+        	Individual ind = population.get(i);
+        	//System.out.printf("Evaluation %d/%d\r", i, populationSize);
         	ind.setFitness(FitnessCalculator.calculateFitness(ind));
-        }
+        	i += 1;
+        });
     }
 
     

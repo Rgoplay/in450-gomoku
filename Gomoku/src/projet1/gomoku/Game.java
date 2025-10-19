@@ -78,7 +78,7 @@ public class Game {
 
     public static void main(String[] args) {
 
-        startMatch(new AI_MinMaxAB2LSO_Iterative(5,new PatternEvalW6(), 30000), new AI_MinMaxAB2LSO_Iterative(5,new PatternEval(), 30000));
+        startMatch(new AI_MinMaxAB2LSO_Iterative(5,new PatternEvalW6(), 1000), new AI_MinMaxAB2LSO_Iterative(5,new PatternEval(), 1000));
         
         
         // RESEAU

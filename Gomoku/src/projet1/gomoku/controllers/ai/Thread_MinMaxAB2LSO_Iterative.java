@@ -33,7 +33,7 @@ public class Thread_MinMaxAB2LSO_Iterative extends Thread {
         threadFinishedCleanly = false;
     }
 
-    private int minMax(GomokuBoard board, int depth, Player minMaxPlayer, int alpha, int beta) {
+    private int minMax(GomokuBoard board, int depth, Player minMaxPlayer, Player player, int alpha, int beta) {
     	
     	if(!running) {
     		return 0;
@@ -41,10 +41,11 @@ public class Thread_MinMaxAB2LSO_Iterative extends Thread {
     	
     	ArrayList<Pair> tab = new ArrayList<>();
     	
+    	int coef = player == minMaxPlayer ? 1 : -1;
     	Player inverseMinMaxPlayer = minMaxPlayer == Player.White ? Player.Black : Player.White;
         if (depth == 0 || board.getWinnerState() != WinnerState.None) {
-        	nbNodeLeafEvaluated = getNbNodeLeafEvaluated() + 1;
-        	return eval.evaluateBoard(board, minMaxPlayer)+2*depth; // On rajoute depth afin de privilégier les victoire rapide aux longues
+        	nbNodeLeafEvaluated += 1;
+        	return coef*(eval.evaluateBoard(board, player)+2*depth); // On rajoute depth afin de privilégier les victoire rapide aux longues
         }
         int value = Integer.MIN_VALUE + 1; //nbr max
         Coords currentCellCoords = new Coords();
@@ -74,7 +75,7 @@ public class Thread_MinMaxAB2LSO_Iterative extends Thread {
         	
         	board.set(pair.getCoords(), playerCellState); // Jouer le coup
             addPlayableSquares(pair.getCoords().column, pair.getCoords().row);
-            value = Math.max(value, -minMax(board,depth-1, inverseMinMaxPlayer,-beta, -alpha)); // Evaluer le coup
+            value = Math.max(value, -minMax(board,depth-1, inverseMinMaxPlayer, player, -beta, -alpha)); // Evaluer le coup
             board.set(pair.getCoords(), TileState.Empty); // Annuler le coup
             removePlayableSquares(pair.getCoords().column, pair.getCoords().row);
             
@@ -126,7 +127,7 @@ public class Thread_MinMaxAB2LSO_Iterative extends Thread {
         	
         	board.set(pair.getCoords(), playerCellState); // Jouer le coup
             addPlayableSquares(pair.getCoords().column, pair.getCoords().row);
-            score = -minMax(board,depthMax-1, inversePlayer,-beta, -alpha); // Evaluer le coup
+            score = -minMax(board,depthMax-1, inversePlayer, player, -beta, -alpha); // Evaluer le coup
             board.set(pair.getCoords(), TileState.Empty); // Annuler le coup
             removePlayableSquares(pair.getCoords().column, pair.getCoords().row);
         

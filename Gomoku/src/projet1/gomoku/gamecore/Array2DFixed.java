@@ -6,7 +6,7 @@ import projet1.gomoku.gamecore.enums.TileState;
 */
 public class Array2DFixed implements Cloneable {
 	/**Tableau 2D*/
-    private TileState[][] array;
+    public TileState[][] array;
 
     /**Créer un tableau 2D
      * @param width Largeur du tableau

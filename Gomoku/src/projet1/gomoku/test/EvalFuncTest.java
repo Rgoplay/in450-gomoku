@@ -26,9 +26,9 @@ public class EvalFuncTest {
 		
 		GomokuBoard board = stringToBoard(strBoard1);
 		int patternScore = new PatternEval().evaluateBoard(board, Player.White);
-		System.out.printf("1W | PatternEval %s\n", (patternScore == 20999)?"OK":"FAIL");
+		System.out.printf("1W | PatternEval %s\n", (patternScore == 20998)?"OK":"FAIL");
 		patternScore = new PatternEval().evaluateBoard(board, Player.Black);
-		System.out.printf("1B | PatternEval %s\n", (patternScore == -20999)?"OK":"FAIL");
+		System.out.printf("1B | PatternEval %s\n", (patternScore == -20998)?"OK":"FAIL");
 		
 		String[] strBoard2 ={"               ",
 							 "        B      ",
@@ -48,9 +48,9 @@ public class EvalFuncTest {
 		
 		board = stringToBoard(strBoard2);
 		patternScore = new PatternEval().evaluateBoard(board, Player.White);
-		System.out.printf("2W | PatternEval %s\n", (patternScore == -1001)?"OK":"FAIL");
+		System.out.printf("2W | PatternEval %s\n", (patternScore == -1002)?"OK":"FAIL");
 		patternScore = new PatternEval().evaluateBoard(board, Player.Black);
-		System.out.printf("2B | PatternEval %s\n", (patternScore == 1001)?"OK":"FAIL");
+		System.out.printf("2B | PatternEval %s\n", (patternScore == 1002)?"OK":"FAIL");
 	}
 	
 	private static GomokuBoard stringToBoard(String[] s) {

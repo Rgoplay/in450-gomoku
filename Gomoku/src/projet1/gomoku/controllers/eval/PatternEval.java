@@ -1,12 +1,13 @@
 package projet1.gomoku.controllers.eval;
 
+
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 public class PatternEval extends EvalFunction {
 	
-	private int[] scores = new int[243]; // 3^5 patterns possibles
+	private final int[] scores = new int[243]; // 3^5 patterns possibles
 	
 	public PatternEval() {
 		int p3Value = 500;
@@ -83,16 +84,20 @@ public class PatternEval extends EvalFunction {
 		for(int y = 0; y <= 10; y++) {
             for(int x = 0; x <= 10; x++) {
             	
-                score += coef*getScore(convint_horiz(x,y, board));
+            	score += coef*detectPatterns(board, convint_horiz(x,y, board), x, y, 1, 0);
+                
               
-                score += coef*getScore(convint_vert(x,y, board));
+            	score += coef*detectPatterns(board, convint_vert(x,y, board), x, y, 0, 1);
+                
+                
 
-                score += coef*getScore(convint_diagSE(x,y, board));
+            	score += coef*detectPatterns(board, convint_diagSE(x,y, board), x, y, 1, 1);
 
                 // de 4 à 14 en x
-                score += coef*getScore(convint_diagSW(x+4,y, board));
+            	score += coef*detectPatterns(board, convint_diagSW(x+4,y, board), x+4, y, -1, 1);
                 
-                if(x <= 9 && x >= 5 && y >= 5 && y <= 9) {
+                // On ajoute 1 pour chaque pion au centre
+                if(x >= 4 && y >= 4) { // x <= 10 && y <= 10 implicite des boucles for
                 	if(board.get(x, y) == playerTile) {
                 		score += 1;
                 	} else if(board.get(x, y) == enemyTile) {
@@ -103,6 +108,27 @@ public class PatternEval extends EvalFunction {
 		}
 		return score;
 	}
+	
+	
+	private int detectPatterns(GomokuBoard board, int patternId, int x, int y, int dx, int dy) {
+		if(patternId == 39 || patternId == 78) { // 3 ouvert
+			int tx = x + dx*5;
+			int ty = y + dy*5;
+			x = x - dx;
+			y = y - dy;
+    		if((x >= 0 && x < 15 && y >= 0 && y < 15 && board.get(x, y) == TileState.Empty) || (tx >= 0 && tx < 15 && y >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
+    			return 9000;
+    		}
+    	} else if(patternId == 40 || patternId == 80) { // 4 ouvert
+    		int tx = x + dx*5;
+			int ty = y + dy*5;
+    		if((tx >= 0 && tx < 15 && ty >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
+    			return 100000;
+    		}
+    	}
+    	return getScore(patternId);
+	}
+
 	
 	
 	// Ordinal() permet de correspondre l'ordre des TileState a un entier

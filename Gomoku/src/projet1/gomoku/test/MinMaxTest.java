@@ -2,12 +2,9 @@ package projet1.gomoku.test;
 
 import java.util.Random;
 
-import projet1.gomoku.controllers.ai.AI_MinMax;
-import projet1.gomoku.controllers.ai.AI_MinMaxAB;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2L_Sorted;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB_2Limit;
-import projet1.gomoku.controllers.eval.Pattern6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;

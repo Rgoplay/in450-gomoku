@@ -2,7 +2,6 @@ package projet1.gomoku.controllers.ai;
 
 import java.util.ArrayList;
 
-
 import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.eval.EvalFunction;
 import projet1.gomoku.gamecore.Coords;
@@ -22,13 +21,14 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
         super(minimaxDepth, eval);
     }
 
-    private int minMax(GomokuBoard board, int depth, Player minMaxPlayer, int alpha, int beta) {
+    private int minMax(GomokuBoard board, int depth, Player minMaxPlayer, Player player, int alpha, int beta) {
     	ArrayList<Pair> tab = new ArrayList<>();
     	
+    	int coef = player == minMaxPlayer ? 1 : -1;
     	Player inverseMinMaxPlayer = minMaxPlayer == Player.White ? Player.Black : Player.White;
         if (depth == 0 || board.getWinnerState() != WinnerState.None) {
         	nbNodeLeafEvaluated++;
-        	return eval.evaluateBoard(board, minMaxPlayer)+2*depth; // On rajoute depth afin de privilégier les victoire rapide aux longues
+        	return coef*(eval.evaluateBoard(board, player)+2*depth); // On rajoute depth afin de privilégier les victoire rapide aux longues
         }
         int value = Integer.MIN_VALUE + 1; //nbr max
         Coords currentCellCoords = new Coords();
@@ -58,7 +58,7 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
         	
         	board.set(pair.getCoords(), playerCellState); // Jouer le coup
             addPlayableSquares(pair.getCoords().column, pair.getCoords().row);
-            value = Math.max(value, -minMax(board,depth-1, inverseMinMaxPlayer,-beta, -alpha)); // Evaluer le coup
+            value = Math.max(value, -minMax(board,depth-1, inverseMinMaxPlayer, player, -beta, -alpha)); // Evaluer le coup
             board.set(pair.getCoords(), TileState.Empty); // Annuler le coup
             removePlayableSquares(pair.getCoords().column, pair.getCoords().row);
             
@@ -75,7 +75,7 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
     
     
     
-    public Coords startMinMax(GomokuBoard board, Player player){ //scan les coups possible du tableau et les joue -> a utiliser récursivement dans le minmax
+    public Coords startMinMax(GomokuBoard board, Player player){
     	nbNodeLeafEvaluated = 0;
     	ArrayList<Pair> tab = new ArrayList<>();
     	
@@ -111,7 +111,7 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
         	
         	board.set(pair.getCoords(), playerCellState); // Jouer le coup
             addPlayableSquares(pair.getCoords().column, pair.getCoords().row);
-            score = -minMax(board,depthMax-1, inversePlayer,-beta, -alpha); // Evaluer le coup
+            score = -minMax(board,depthMax-1, inversePlayer, player, -beta, -alpha); // Evaluer le coup
             board.set(pair.getCoords(), TileState.Empty); // Annuler le coup
             removePlayableSquares(pair.getCoords().column, pair.getCoords().row);
         
@@ -120,10 +120,12 @@ public class AI_MinMaxAB2LS_Opti extends AIPlayer {
 	        	bestCoords = pair.getCoords().clone();
 	        }
 	        if(bestScore >= beta) {
+	        	//System.out.println(bestScore);
 	        	return bestCoords;
 	        }
 	        alpha = Math.max(alpha, bestScore); 
 		}
+        //System.out.println(bestScore);
         return bestCoords; // Retourner les coordonnées des coups
     }
 

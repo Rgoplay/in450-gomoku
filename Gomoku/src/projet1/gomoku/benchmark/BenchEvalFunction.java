@@ -1,12 +1,9 @@
 package projet1.gomoku.benchmark;
 
 import projet1.gomoku.controllers.AIPlayer;
-import projet1.gomoku.controllers.ai.AI_Depth1;
 import projet1.gomoku.controllers.ai.AI_MinMax;
 import projet1.gomoku.controllers.eval.EvalFunction;
-import projet1.gomoku.controllers.eval.Pattern6;
 import projet1.gomoku.controllers.eval.PatternEval;
-import projet1.gomoku.controllers.eval.WinLossEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
 import projet1.gomoku.gamecore.enums.Player;
@@ -32,6 +29,7 @@ public class BenchEvalFunction {
         }
         
         long startTime = System.currentTimeMillis();
+
         for(int i = 0; i < nbOfRuns; i++) {
         	evalScore = eval.evaluateBoard(board, currentPlayer);
         }
@@ -46,7 +44,7 @@ public class BenchEvalFunction {
     }
 
     public static void main(String[] args) {
-        startBench(new Pattern6(), 1000000);
+        startBench(new PatternEval(), 1000000);
     }
 
 

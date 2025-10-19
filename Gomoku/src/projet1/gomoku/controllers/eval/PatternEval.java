@@ -80,36 +80,36 @@ public class PatternEval extends EvalFunction {
 		
 		// On calcule pour les blancs, donc il faut inverser si le joueur est noir
 		int coef = player == Player.White ? 1 : -1;
-		TileState playerTile = player == Player.White ? TileState.White : TileState.Black;
-		TileState enemyTile = playerTile == TileState.Black ? TileState.White : TileState.Black;
+		//TileState playerTile = player == Player.White ? TileState.White : TileState.Black;
+		//TileState enemyTile = playerTile == TileState.Black ? TileState.White : TileState.Black;
 		
 		int score = 0;
 		for(int y = 0; y <= 10; y++) {
             for(int x = 0; x <= 10; x++) {
             	
-            	score += coef*detectPatterns(board, convint_horiz(x,y, board), x, y, 1, 0);
+            	score += detectPatterns(board, convint_horiz(x,y, board), x, y, 1, 0);
                 
               
-            	score += coef*detectPatterns(board, convint_vert(x,y, board), x, y, 0, 1);
+            	score += detectPatterns(board, convint_vert(x,y, board), x, y, 0, 1);
                 
                 
 
-            	score += coef*detectPatterns(board, convint_diagSE(x,y, board), x, y, 1, 1);
+            	score += detectPatterns(board, convint_diagSE(x,y, board), x, y, 1, 1);
 
                 // de 4 à 14 en x
-            	score += coef*detectPatterns(board, convint_diagSW(x+4,y, board), x+4, y, -1, 1);
+            	score += detectPatterns(board, convint_diagSW(x+4,y, board), x+4, y, -1, 1);
                 
                 // On ajoute 1 pour chaque pion au centre
                 if(x >= 4 && y >= 4) { // x <= 10 && y <= 10 implicite des boucles for
-                	if(board.get(x, y) == playerTile) {
+                	if(board.get(x, y) == TileState.White) {
                 		score += 1;
-                	} else if(board.get(x, y) == enemyTile) {
+                	} else if(board.get(x, y) == TileState.Black) {
                 		score -= 1;
                 	}
                 }
             }
 		}
-		return score;
+		return coef*score;
 	}
 	
 	

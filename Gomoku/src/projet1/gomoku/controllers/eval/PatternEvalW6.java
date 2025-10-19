@@ -6,13 +6,13 @@ import projet1.gomoku.gamecore.enums.Player;
 import projet1.gomoku.gamecore.enums.TileState;
 
 /**
- * Fonction se basant sur des patterns de 5 pour son évaluation
+ * Fonction se basant sur des patterns de 5 et quelques de 6 pour son évaluation
  */
-public class PatternEval extends EvalFunction {
+public class PatternEvalW6 extends EvalFunction {
 	
 	private final int[] scores = new int[243]; // 3^5 patterns possibles
 	
-	public PatternEval() {
+	public PatternEvalW6() {
 		int p3Value = 500;
 		int p4Value = 10000;
 		int p5Value = 999999999;
@@ -87,17 +87,17 @@ public class PatternEval extends EvalFunction {
 		for(int y = 0; y <= 10; y++) {
             for(int x = 0; x <= 10; x++) {
             	
-            	score += getScore(convint_horiz(x,y, board));
+            	score += detectPatterns(board, convint_horiz(x,y, board), x, y, 1, 0);
                 
               
-            	score += getScore(convint_vert(x,y, board));
+            	score += detectPatterns(board, convint_vert(x,y, board), x, y, 0, 1);
                 
                 
 
-            	score += getScore(convint_diagSE(x,y, board));
+            	score += detectPatterns(board, convint_diagSE(x,y, board), x, y, 1, 1);
 
                 // de 4 à 14 en x
-            	score += getScore(convint_diagSW(x+4,y, board));
+            	score += detectPatterns(board, convint_diagSW(x+4,y, board), x+4, y, -1, 1);
                 
                 // On ajoute 1 pour chaque pion au centre
                 if(x >= 4 && y >= 4) { // x <= 10 && y <= 10 implicite des boucles for
@@ -111,7 +111,35 @@ public class PatternEval extends EvalFunction {
 		}
 		return coef*score;
 	}
-
+	
+	
+	private int detectPatterns(GomokuBoard board, int patternId, int x, int y, int dx, int dy) {
+		if(patternId == 39 || patternId == 78) { // 3 ouvert
+			int tx = x + dx*5;
+			int ty = y + dy*5;
+			x = x - dx;
+			y = y - dy;
+    		if((x >= 0 && x < 15 && y >= 0 && y < 15 && board.get(x, y) == TileState.Empty) || (tx >= 0 && tx < 15 && y >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
+    			if(patternId == 39) {
+    				return 9000;
+    			} else {
+    				return -9000;
+    			}
+    			
+    		}
+    	} else if(patternId == 40 || patternId == 80) { // 4 ouvert
+    		int tx = x + dx*5;
+			int ty = y + dy*5;
+    		if((tx >= 0 && tx < 15 && ty >= 0 && ty < 15 && board.get(tx, ty) == TileState.Empty)) {
+    			if(patternId == 40) {
+    				return 100000;
+    			} else {
+    				return -100000;
+    			}
+    		}
+    	}
+    	return getScore(patternId);
+	}
 
 	
 	

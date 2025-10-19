@@ -3,6 +3,7 @@ package projet1.gomoku.benchmark;
 import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_MinMax;
 import projet1.gomoku.controllers.eval.EvalFunction;
+import projet1.gomoku.controllers.eval.PatternEvalW6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -17,7 +18,7 @@ public class BenchEvalFunction {
     public static void startBench(EvalFunction eval, int nbOfRuns){
         GomokuBoard board = new GomokuBoard();
         Player currentPlayer = Player.White;
-        AIPlayer p = new AI_MinMax(1, new PatternEval());
+        AIPlayer p = new AI_MinMax(1, new PatternEvalW6());
         int evalScore = 0;
 
         while (board.getWinnerState() == WinnerState.None){ // Tant que la partie n'est pas finie

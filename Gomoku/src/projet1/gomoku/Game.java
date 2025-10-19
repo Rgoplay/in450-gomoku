@@ -1,9 +1,9 @@
 package projet1.gomoku;
 
-import projet1.gomoku.controllers.NetWorkPlayer;
 import projet1.gomoku.controllers.PlayerController;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LSO_Iterative;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
+import projet1.gomoku.controllers.eval.PatternEvalW6;
 import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -78,7 +78,7 @@ public class Game {
 
     public static void main(String[] args) {
 
-        startMatch(new AI_MinMaxAB2LSO_Iterative(5,new PatternEval(), 28000), new AI_MinMaxAB2LS_Opti(5,new PatternEval()));
+        startMatch(new AI_MinMaxAB2LSO_Iterative(5,new PatternEval(), 28000), new AI_MinMaxAB2LS_Opti(5,new PatternEvalW6()));
         
         
         // RESEAU

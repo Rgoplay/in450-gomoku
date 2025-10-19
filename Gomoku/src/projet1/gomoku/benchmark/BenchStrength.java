@@ -4,6 +4,7 @@ import java.util.Random;
 
 import projet1.gomoku.controllers.AIPlayer;
 import projet1.gomoku.controllers.ai.AI_MinMaxAB2LS_Opti;
+import projet1.gomoku.controllers.eval.PatternEval;
 import projet1.gomoku.controllers.eval.PatternEvalW6;
 import projet1.gomoku.gamecore.Coords;
 import projet1.gomoku.gamecore.GomokuBoard;
@@ -79,20 +80,6 @@ public class BenchStrength {
     }
 
     public static void main(String[] args) {
-    	startStrengthBench(new AI_MinMaxAB2LS_Opti(3,new PatternEvalW6()), new AI_MinMaxAB2LS_Opti(3,new PatternEvalW6()));
+    	startStrengthBench(new AI_MinMaxAB2LS_Opti(3,new PatternEval()), new AI_MinMaxAB2LS_Opti(2,new PatternEvalW6()));
     }
 }
-
-/**
- * Résultat notable: a meme profondeur (2) AI_MinMaxAB gagne contre AI_MinMaxAB_2Limit, si AI_MinMaxAB joue en premier, meme équitable si AI_MinMaxAB_2Limit joue en premier
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
-*/

@@ -1,5 +1,8 @@
 
 # Projet IA Gomoku
+
+Projet académique cours d'IN450, introduction à l'IA (Semestre 7, 4ème année)
+
 **Fonctionnalités de notre IA :**
 - Negamax
 - Coupe alpha beta
